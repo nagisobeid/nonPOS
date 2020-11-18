@@ -73,8 +73,8 @@ input[type=submit]:hover {
   text-align: center;
   grid-column-start: 3;
   grid-column-end: 5;
-  /*grid-row-start: 2;
-  grid-row-end: 4;*/
+  grid-row-start: 2;
+  /*grid-row-end: 4;*/
 }
 .formDescription {
   grid-column-start: 1;
@@ -95,8 +95,8 @@ input[type=submit]:hover {
   color:white;
   grid-column-start: 1;
   grid-column-end: 7;
-  grid-row-start: 2;
   grid-row-start: 3;
+  grid-row-end: 4;
   text-align: center;
 }
 

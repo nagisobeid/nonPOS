@@ -72,8 +72,8 @@ input[type=submit]:hover {
   text-align: center;
   grid-column-start: 3;
   grid-column-end: 5;
-  /*grid-row-start: 2;
-  grid-row-end: 4;*/
+  grid-row-start: 2;
+  /*grid-row-end: 4;*/
 }
 .formDescription {
   text-align: center;

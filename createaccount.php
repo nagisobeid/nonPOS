@@ -2,7 +2,7 @@
 	session_start();
 	include_once 'db.php';
 
-	$obj = new DBH;
+		$obj = new DBH;
 		$con = $obj->connect();
 
 		$status = "";
@@ -13,9 +13,22 @@
 			$username = $_POST['nameUsername'];
 			$password = $_POST['namePassword'];
 			$passwordRepeat = $_POST['namePasswordRepeat'];
+
+			$sql_u = "SELECT * FROM business_user WHERE username='$username'";
+			$sql_e = "SELECT * FROM business_user WHERE email='$email'";
+			$res_u = $con->prepare($sql_u);
+			$res_e = $con->prepare($sql_e); 
+			$res_u->execute();
+			$res_e->execute();
 	  
 			if(empty($name) || empty($email) || empty($username) || empty($password) || empty($passwordRepeat)) {
 				$status = "All fields are requried";
+			}
+			else if ($res_u->rowCount() > 0) {
+				$status = "Username Already Exists";
+			} 
+			else if ($res_e->rowCount() > 0) {
+				$status = "Email Already Exists";
 			} else { 
 				if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 					$status = "Please enter a valid email";
@@ -25,9 +38,11 @@
 					} else {
 						$sql = "INSERT INTO business_user (name, email, username, password) 
 						VALUES (:name, :email, :username, :password)";
+
+						$hashedPW = password_hash($password, PASSWORD_BCRYPT);
 				
 						$stmt = $con->prepare($sql);
-						$stmt->execute(['name' => $name, 'email' => $email, 'username' => $username, 'password' => $password]);
+						$stmt->execute(['name' => $name, 'email' => $email, 'username' => $username, 'password' => $hashedPW]);
 						
 						$_SESSION['name'] = $name;
 						header("location: home.php");

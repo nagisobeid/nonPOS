@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +28,7 @@
 	
 	<div class="container">
 		<div class="formDescription">
-			<h1 class="description">Business Name</h1>
+			<h1 class="description"><?= $_SESSION['name'] ?></h1>
 		</div>
 		<div class="form">  
 	  		<input type="submit" value="Pos Register">

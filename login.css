@@ -73,7 +73,7 @@ input[type=submit]:hover {
   grid-column-start: 3;
   grid-column-end: 5;
   grid-row-start: 2;
-  grid-row-end: 3;
+  /*grid-row-end: 3;*/
 }
 .formDescription {
   grid-column-start: 1;

@@ -100,7 +100,7 @@ input[type=submit]:hover {
  }
 
 
- @media screen and (max-width: 774px) {
+ @media screen and (max-width: 992px) {
   .form {
     grid-column-start: 2;
     grid-column-end: 6;

@@ -8,20 +8,22 @@
 		$status = "";
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$name = $_POST['nameBusiness'];
+			$fname = $_POST['nameFname'];
+			$lname = $_POST['nameLname'];
+			$bname = $_POST['nameBusiness'];
 			$email = $_POST['nameEmail'];
 			$username = $_POST['nameUsername'];
 			$password = $_POST['namePassword'];
 			$passwordRepeat = $_POST['namePasswordRepeat'];
 
-			$sql_u = "SELECT * FROM business_user WHERE username='$username'";
-			$sql_e = "SELECT * FROM business_user WHERE email='$email'";
+			$sql_u = "SELECT * FROM owners WHERE username='$username'";
+			$sql_e = "SELECT * FROM owners WHERE email='$email'";
 			$res_u = $con->prepare($sql_u);
 			$res_e = $con->prepare($sql_e); 
 			$res_u->execute();
 			$res_e->execute();
 	  
-			if(empty($name) || empty($email) || empty($username) || empty($password) || empty($passwordRepeat)) {
+			if(empty($fname) || empty($lname) ||empty($bname) || empty($email) || empty($username) || empty($password) || empty($passwordRepeat)) {
 				$status = "All fields are requried";
 			}
 			else if ($res_u->rowCount() > 0) {
@@ -36,15 +38,16 @@
 					if ($passwordRepeat != $password) {
 						$status = "Passwords must match";
 					} else {
-						$sql = "INSERT INTO business_user (name, email, username, password) 
-						VALUES (:name, :email, :username, :password)";
+						$sql = "INSERT INTO owners (fName, lName, email, password, bName, username) 
+						VALUES (:fName, :lName, :email, :password, :bName, :username)";
 
 						$hashedPW = password_hash($password, PASSWORD_BCRYPT);
 				
 						$stmt = $con->prepare($sql);
-						$stmt->execute(['name' => $name, 'email' => $email, 'username' => $username, 'password' => $hashedPW]);
+						$stmt->execute(['fName' => $fname, 'lName' => $lname, 'email' => $email, 
+										'password' => $hashedPW, 'bName' => $bname, 'username'=> $username]);
 						
-						$_SESSION['name'] = $name;
+						$_SESSION['bname'] = $bname;
 						header("location: home.php");
 
 						#$name = "";
@@ -87,6 +90,8 @@
 			<h1 class="description">Create Account</h1>
 		</div>
 		<form action="" method="POST" id="formCreateAccount" class="form">
+			<input class="inputForm" type="text" id="idFname" name="nameFname" placeholder="First Name" required>    
+	    	<input class="inputForm" type="text" id="idLname" name="nameLname" placeholder="Last Name" required>
 			<input class="inputForm" type="text" id="idBusiness" name="nameBusiness" placeholder="Business Name" required>    
 	    	<input class="inputForm" type="text" id="idUsername" name="nameUsername" placeholder="Username" required>
 	    	<input class="inputForm" type="Email" id="idEmail" name="nameEmail" placeholder="Email" required>

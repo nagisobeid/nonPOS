@@ -28,7 +28,7 @@
 	
 	<div class="container">
 		<div class="formDescription">
-			<h1 class="description"><?= $_SESSION['name'] ?></h1>
+			<h1 class="description"><?= $_SESSION['bname'] ?></h1>
 		</div>
 		<div class="form">  
 	  		<input type="submit" value="Pos Register">

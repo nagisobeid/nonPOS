@@ -161,7 +161,7 @@ input[type=text],[type=Email], [type=Password], select {
  }
 
 
- @media screen and (max-width: 774px) {
+ @media screen and (max-width: 992px) {
   .form {
     grid-column-start: 2;
     grid-column-end: 6;

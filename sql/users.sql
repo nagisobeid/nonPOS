@@ -1,9 +1,8 @@
-CREATE TABLE users(
-	id_user VARCHAR(100),
-	first_name VARCHAR(100),
-	last_name VARCHAR(100),
-	address VARCHAR(255),
-	email VARCHAR(255),
-	passw VARCHAR(255),
-	reg_date DATETIME
-    );
+CREATE TABLE IF NOT EXISTS users(
+	username varchar(25) NOT NULL,
+	uEmail varchar(25) NOT NULL,
+	fName varchar(25),
+	lName varchar(25),
+	uPass varchar(25) NOT NULL,
+	PRIMARY KEY (username)
+);

@@ -1,9 +1,10 @@
-CREATE TABLE items(
-	id_item DOUBLE,
-    name_item VARCHAR(100),
-	desc_item VARCHAR(255),
-	price_item FLOAT,
-	img_item BLOB,
-	option_item VARCHAR(100),
-	FOREIGN KEY (id_menu) REFERENCES menu(id_menu)
+CREATE TABLE IF NOT EXISTS items(
+	itemID integer NOT NULL AUTO_INCREMENT,
+	name varchar(25) NOT NULL,
+	iDescrip varchar(125),
+	price float NOT NULL,
+	menuID integer,
+	extraKey varchar(25),
+	PRIMARY KEY(itemID),
+	FOREIGN KEY (menuID) REFERENCES menus(menuID)
 );

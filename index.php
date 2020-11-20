@@ -32,7 +32,7 @@
 		  <p id="message">The best Point of Sale system for small businesses in the quick-service industry
 		  	<div>
 				<button onclick="document.location='login.php'" id="btnLogin" type="button" class="btn btn-primary btnPos">Login</button>
-		    		<button onclick="document.location='createaccount.php'" id="btnCreate_Account" type="button" class="btn btn-primary btnPos">Create Account</button>
+		    	<button onclick="document.location='createaccount.php'" id="btnCreate_Account" type="button" class="btn btn-primary btnPos">Create Account</button>
 		  	</div>
 		  </p>
 		</div>

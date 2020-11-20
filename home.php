@@ -1,5 +1,10 @@
 <?php
 	session_start();
+	if (!isset($_SESSION['auth']))
+	{
+		header("location: login.php");
+    	exit;
+	}
 ?>
 
 <!DOCTYPE html>
@@ -22,19 +27,19 @@
 	<div id="main-bar">
 		<img id="logo" src="./images/logo2.png"></img>
 		<button type="button" id="idBtnHome" class="btn btn-link">Home</button>
-		<button type="button" id="idBtnAboutus" class="btn btn-link">Log Out</button>
+		<button onclick="document.location='logout.php'" type="button" id="idBtnAboutus" class="btn btn-link">Log Out</button>
 	</div>
 </header>
 	
 	<div class="container">
 		<div class="formDescription">
-			<h1 class="description"><?= $_SESSION['bname'] ?></h1>
+			<h1 class="description"><?= $_SESSION['bname']?></h1>
 		</div>
 		<div class="form">  
-	  		<input type="submit" value="Pos Register">
+	  		<input type="submit" value="POS Register">
 	  		<input type="submit" value="Sales">
 	  		<input type="submit" value="Employees">
-	  		<input type="submit" value="Menu Config">
+	  		<input type="submit" value="Menu">
 	  		<input type="submit" value="Settings">
 		</div>
 

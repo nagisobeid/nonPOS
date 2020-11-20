@@ -1,64 +1,73 @@
 <?php
 	session_start();
+	if (isset($_SESSION['auth']))
+	{
+		header("location: home.php");
+    	exit;
+    }
+
 	include_once 'db.php';
 
-		$obj = new DBH;
-		$con = $obj->connect();
+	$obj = new DBH;
+	$con = $obj->connect();
 
-		$status = "";
+	$status = "";
 		
-		if($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$fname = $_POST['nameFname'];
-			$lname = $_POST['nameLname'];
-			$bname = $_POST['nameBusiness'];
-			$email = $_POST['nameEmail'];
-			$username = $_POST['nameUsername'];
-			$password = $_POST['namePassword'];
-			$passwordRepeat = $_POST['namePasswordRepeat'];
+	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$fname = $_POST['nameFname'];
+		$lname = $_POST['nameLname'];
+		$bname = $_POST['nameBusiness'];
+		$email = $_POST['nameEmail'];
+		$username = $_POST['nameUsername'];
+		$password = $_POST['namePassword'];
+		$passwordRepeat = $_POST['namePasswordRepeat'];
 
-			$sql_u = "SELECT * FROM owners WHERE username='$username'";
-			$sql_e = "SELECT * FROM owners WHERE email='$email'";
-			$res_u = $con->prepare($sql_u);
-			$res_e = $con->prepare($sql_e); 
-			$res_u->execute();
-			$res_e->execute();
+		$sql_u = "SELECT * FROM owners WHERE username='$username'";
+		$sql_e = "SELECT * FROM owners WHERE email='$email'";
+		$res_u = $con->prepare($sql_u);
+		$res_e = $con->prepare($sql_e); 
+		$res_u->execute();
+		$res_e->execute();
 	  
-			if(empty($fname) || empty($lname) ||empty($bname) || empty($email) || empty($username) || empty($password) || empty($passwordRepeat)) {
-				$status = "All fields are requried";
-			}
-			else if ($res_u->rowCount() > 0) {
-				$status = "Username Already Exists";
-			} 
-			else if ($res_e->rowCount() > 0) {
-				$status = "Email Already Exists";
-			} else { 
-				if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-					$status = "Please enter a valid email";
+		if(empty($fname) || empty($lname) ||empty($bname) || empty($email) || empty($username) || empty($password) || empty($passwordRepeat)) {
+			$status = "All fields are requried";
+		}
+		else if ($res_u->rowCount() > 0) {
+			$status = "Username Already Exists";
+		} 
+		else if ($res_e->rowCount() > 0) {
+			$status = "Email Already Exists";
+		} else { 
+			if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				$status = "Please enter a valid email";
+			} else {
+				if ($passwordRepeat != $password) {
+					$status = "Passwords must match";
 				} else {
-					if ($passwordRepeat != $password) {
-						$status = "Passwords must match";
-					} else {
-						$sql = "INSERT INTO owners (fName, lName, email, password, bName, username) 
-						VALUES (:fName, :lName, :email, :password, :bName, :username)";
+					$sql = "INSERT INTO owners (fName, lName, email, password, bName, username) 
+					VALUES (:fName, :lName, :email, :password, :bName, :username)";
 
-						$hashedPW = password_hash($password, PASSWORD_BCRYPT);
+					$hashedPW = password_hash($password, PASSWORD_BCRYPT);
 				
-						$stmt = $con->prepare($sql);
-						$stmt->execute(['fName' => $fname, 'lName' => $lname, 'email' => $email, 
-										'password' => $hashedPW, 'bName' => $bname, 'username'=> $username]);
+					$stmt = $con->prepare($sql);
+					$stmt->execute(['fName' => $fname, 'lName' => $lname, 'email' => $email, 
+									'password' => $hashedPW, 'bName' => $bname, 'username'=> $username]);
 						
-						$_SESSION['bname'] = $bname;
-						header("location: home.php");
+					$_SESSION['bname'] = $bname;
+					$_SESSION['username'] = $username;
+					$_SESSION['auth']=true;
+					$_SESSION['firstLogin']=true;
+					header("location: createemployee.php");
 
-						#$name = "";
-						$email = "";
-						$username = "";
-						$password = "";
-						$passwordRepeat = "";
-						}
-		  			}
-				}
-	  		}
+					#$name = "";
+					#$email = "";
+					#$username = "";
+					#$password = "";
+					#$passwordRepeat = "";
+					}
+		  		}
+			}
+	  	}
 ?>
 
 <!DOCTYPE html>

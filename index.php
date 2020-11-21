@@ -25,11 +25,11 @@
 	<div id="mid-section" style="padding-bottom: 0px;">
 		<!-- jumbotron -->
 
-		<div class="jumbotron" style="box-shadow: 5px 10px; height: 80%; overflow:auto;">
-		  <h1 class="display-4">Hello.</h1>
+		<div id="jumb" class="jumbotron" style="box-shadow: 5px 10px; height: 360px; overflow:auto;">
+		  <h1 class="display-4">Hello</h1>
 		  <p class="lead">Welcome to nonPOS</p>
 		  <hr class="my-4">
-		  <p id="message">The best Point of Sale system for small businesses in the quick-service industry
+		  <p id="message">The best Point of Sale system for small businesses.
 		  	<div>
 				<button onclick="document.location='login.php'" id="btnLogin" type="button" class="btn btn-primary btnPos">Login</button>
 		    	<button onclick="document.location='createaccount.php'" id="btnCreate_Account" type="button" class="btn btn-primary btnPos">Create Account</button>
@@ -41,11 +41,8 @@
 	</div>
 	
 </body>
-	<div id="bottom-section">
-		<img class="main-page-img" src="./images/graph.svg"></img>
-		<img class="main-page-img" src="./images/log.svg"></img>
-		<img class="main-page-img" src="./images/cash.svg"></img>
-		<img class="main-page-img" src="./images/card.svg"></img>
-	</div>
+	<!--<div id="bottom-section">
+		<img id="imgCard" class="main-page-img" src="./images/ccds.jpg"></img>
+	</div>-->
 </div>
 </html>

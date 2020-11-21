@@ -1,7 +1,9 @@
-CREATE TABLE contains(
-	FOREIGN KEY (id_orders) REFERENCES orders(id_orders),
-	FOREIGN KEY (id_item) REFERENCES items(id_item),
-    qu_order INT,
-	FOREIGN KEY (price_item) REFERENCES items(price_item),
-    PRIMARY KEY(id_orders)
+CREATE TABLE IF NOT EXISTS contains(
+	oID integer NOT NULL AUTO_INCREMENT,
+	itemID integer NOT NULL,
+	quantity integer NOT NULL,
+	price float NOT NULL,
+	PRIMARY KEY (oID, itemID),
+	FOREIGN KEY (oID) REFERENCES orders(oID), 
+	FOREIGN KEY (itemID) REFERENCES items(itemID)
 );

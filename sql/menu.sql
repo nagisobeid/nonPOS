@@ -1,5 +1,8 @@
-CREATE TABLE menu(
-	id_menu DOUBLE,
-	name_menu VARCHAR(100),
-	descript_menu VARCHAR(255)
+CREATE TABLE IF NOT EXISTS menus(
+	menuID integer NOT NULL AUTO_INCREMENT,
+	mName varchar(25) NOT NULL,
+	bID integer NOT NULL,
+	mDescrip varchar(125),
+	PRIMARY KEY(menuID),
+	FOREIGN KEY (bID) REFERENCES owners(bID)
 );

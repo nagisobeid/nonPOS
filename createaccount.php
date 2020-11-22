@@ -48,7 +48,7 @@
 					VALUES (:username, :uEmail, :fName, :lName, :bName, :uPass)";
 
 					#$hashedPW = password_hash($password, PASSWORD_BCRYPT);
-					$hashedPW = crypt($password, CRYPT_BLOWFISH);
+					$hashedPW = crypt($password, 'CRYPT_BLOWFISH');
 				
 					$stmt = $con->prepare($sql);
 					$stmt->execute(['username' => $username, 'uEmail' => $email, 'fName' => $fname, 

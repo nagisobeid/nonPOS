@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['auth']) and !isset($_SESSION['firstLogin']))
+    if (!isset($_SESSION['auth']))# and ($_SESSION['firstLogin'] == false))
 	{
 		header("location: login.php");
     	exit;
@@ -10,7 +10,13 @@
 	$obj = new DBH;
 	$con = $obj->connect();
     
-    $desc = "Create Manager";
+    if (isset($_SESSION['firstLogin'])) {
+        $desc = "Create Manager";
+        #unset ($_SESSION["firstLogin"]);
+    } else {
+        $desc = "Create Employee";
+    }
+    
 	$status = "";
     
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -27,16 +33,21 @@
         $dob = $_POST['nameDOB'];     
 
         $username = $_SESSION['username'];
-
-        $sql = "SELECT * FROM employees WHERE ePass='$password'";
-        $sql_b = "SELECT * FROM owners WHERE username='$username'";
-        $res = $con->prepare($sql);
+        #$sql = "SELECT * FROM employees WHERE ePass='$password'";
+        $sql_b = "SELECT * FROM users WHERE username='$username'";
+        #$res = $con->prepare($sql);
         $res_b = $con->prepare($sql_b);
-        $res->execute();
+        #$res->execute();
         $res_b->execute();
+        #$employee = $res->fetch();
+        $user = $res_b->fetch();
+        $bID = $user['bID'];
+
+        $sql_u = "SELECT * FROM employees WHERE ePass='$password' AND bID='$bID'";
+        $res = $con->prepare($sql_u);
+        $res->execute();
         $employee = $res->fetch();
-        $owner = $res_b->fetch();
-        $bID = $owner['bID'];
+
         if(empty($fname) || empty($lname) ||empty($password) || 
             empty($address) || empty($city) || empty($state) || 
             empty($zip) || empty($phone) || empty($permissions) || empty($payrate)) {
@@ -44,18 +55,25 @@
 		}
 		else if ($res->rowCount() > 0) {
 			$status = "Passcode Already Exists";
-		}  else {  
-                    $sql = "INSERT INTO employees (fName, lName, dob, ePass, address, city, state, zip, phone, permisions, payRate, bID)
-                    VALUES (:fName, :lName, :dob, :ePass, :address, :city, :state, :zip, :phone, :permisions, :payRate, :bID)";
+		} else if($permissions != '1' and isset($_SESSION['firstLogin'])) {
+            $status = "First User Must Have Manager Permissions(1)";
+        } else {  
+                    $sql = "INSERT INTO employees (fName, lName, dob, ePass, address, city, state, zip, phone, permissions, payRate, bID)
+                    VALUES (:fName, :lName, :dob, :ePass, :address, :city, :state, :zip, :phone, :permissions, :payRate, :bID)";
                     #VALUES (:fname,:lname,:dob,:password,:address, :city, :state,:zip,:phone,:permissions,:payrate,bID)";
 				
 					$stmt = $con->prepare($sql);
 					$stmt->execute(['fName' => $fname, 'lName' => $lname, 'dob' => $dob, 
                                     'ePass' => $password, 'address' => $address, 'city'=> $city,
                                     'state' => $state, 'zip' => $zip, 'phone'=> $phone,
-                                    'permisions' => $permissions, 'payRate' => $payrate, 'bID'=> $bID]);
+                                    'permissions' => $permissions, 'payRate' => $payrate, 'bID'=> $bID]);
+                    
+                    if(isset($_SESSION['firstLogin'])) {
+                        unset ($_SESSION["firstLogin"]);
+                    }
 						
-					$_SESSION['auth']=true;
+                    #$_SESSION['auth']=true;
+                    
                     #header("location: home.php");
                     
                     if($permissions == '1') {

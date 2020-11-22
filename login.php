@@ -17,16 +17,21 @@
 		$username = $_POST['nameUsername'];
 		$password = $_POST['namePassword']; 
 		
-		$sql = "SELECT * FROM owners WHERE username = '$username'";
+		$sql = "SELECT * FROM users WHERE username = '$username'";
 		$result = $con->prepare($sql);
 		$result->execute();
 
 		$user = $result->fetch();
 		#echo $user['bName'];
-		if ($user and password_verify($password, $user['password'])) {
-			
+		$db_hashed_password = $user['uPass'];
+		$hashed_password = crypt($password,CRYPT_BLOWFISH);
+        if ($user and ($db_hashed_password == $hashed_password)) {	
 			$bname = $user['bName'];
+			$bID = $user['bID'];
+			$username = $user['username'];
 			$_SESSION['bname'] = $bname;
+			$_SESSION['bid'] = $bID;
+			$_SESSION['username'] = $username;
 			$_SESSION['auth']=true;
 			$status = "";
 			header("location: home.php");

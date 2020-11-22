@@ -35,19 +35,18 @@ body {
 input[type=text],[type=Email], [type=Password], select {
   width: 85%;
   padding: 12px 20px;
-  margin: 1% 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
+  margin-top: 2px;
 }
 
 input[type=submit] {
   width: 85%;
   background-color: #337ABC;
   color: white;
-  padding: 14px 20px;
-  margin: 1% 0;
+  padding: 12px 20px;
+  margin-top: 2px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -87,19 +86,33 @@ input[type=submit]:hover {
   color: white;
   padding-top: 50px;
 }
-
+/*
 #idAccountlogo {
-  padding-top: 10px;
-  width: 80%;
-  height: 90%;
+  padding: 25px;
+  width: 20px;
+  height: 200px;
 }
+
 #idLogodiv {
   grid-column-start: 3;
   grid-column-end: 5;
   grid-row-start: 3;
   grid-row-end: 5;
   text-align: center;
+}*/
+#divPhpMessage {
+  font-family: Arial, Helvetica, sans-serif;
+  color:white;
+  grid-column-start: 1;
+  grid-column-end: 7;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  text-align: center;
 }
+#idPin {
+  margin-top: 20px;
+}
+
 
 /*
 @media screen and (max-height: 592px) {
@@ -150,7 +163,7 @@ input[type=text],[type=Email], [type=Password], select {
 
 @media screen and (max-height: 3000px) {
   .form {
-   height: 150px;
+   height: 170px;
    } 
  }
 
@@ -167,7 +180,7 @@ input[type=text],[type=Email], [type=Password], select {
     grid-column-end: 6;
   }
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 576px) {
   .form {
     grid-column-start: 1;
     grid-column-end: 7;

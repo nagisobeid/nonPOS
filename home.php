@@ -36,7 +36,7 @@
 			<h1 class="description"><?= $_SESSION['bname']?></h1>
 		</div>
 		<div class="form">  
-	  		<input type="submit" value="POS Register">
+	  		<input id="idPosRegister" type="submit" value="POS Register">
 	  		<input type="submit" value="Sales">
 	  		<input type="submit" value="Employees">
 	  		<input type="submit" value="Menu">

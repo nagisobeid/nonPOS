@@ -23,9 +23,9 @@
 
 		$user = $result->fetch();
 		#echo $user['bName'];
-		$db_hashed_password = $user['uPass'];
-		$hashed_password = crypt($password,CRYPT_BLOWFISH);
-        if ($user and ($db_hashed_password == $hashed_password)) {	
+		
+		$hashed_password = crypt($password, 'CRYPT_BLOWFISH');
+        if ($user and ($user['uPass'] == $hashed_password)) {	
 			$bname = $user['bName'];
 			$bID = $user['bID'];
 			$username = $user['username'];

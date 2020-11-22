@@ -1,3 +1,40 @@
+<!--WORKS FROM LOGIN-->
+<!--WORKS FROM CREATE ACCOUNT-->
+<?php
+	session_start();
+	if (!isset($_SESSION['auth']))
+	{
+		header("location: login.php");
+    	exit;
+	}
+	
+  	include_once 'db.php';
+
+  	$obj = new DBH;
+  	$con = $obj->connect();
+
+	$status = "";
+   
+	if($_SERVER["REQUEST_METHOD"] == "POST") {
+		$pin = $_POST['namePin']; 
+		$bID = $_SESSION['bid'];
+		$sql = "SELECT * FROM employees WHERE ePass = '$pin' AND bID = '$bID'";
+		$result = $con->prepare($sql);
+		$result->execute();
+
+		$employee = $result->fetch();
+		#echo $user['bName'];
+		if ($employee and $employee['ePass'] == $pin) {
+			#$status = $employee['fName'];
+			#header("location: home.php");
+		}
+		else {
+			$status = "Invalid Pin";
+		}
+	}
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +55,7 @@
 	<div id="main-bar">
 		<img id="logo" src="./images/logo2.png"></img>
 		<button type="button" id="idBtnHome" class="btn btn-link">Home</button>
-		<button type="button" id="idBtnLogout" class="btn btn-link">Log Out</button>
+		<button onclick="document.location='logout.php'" type="button" id="idBtnLogout" class="btn btn-link">Log Out</button>
 	</div>
 </header>
 	
@@ -26,16 +63,19 @@
 		<div class="formDescription">
 			<h1 class="description">Employee Pin</h1>
 		</div>
-		<div class="form">  
-	    	<input type="Password" id="idPin" name="namePin" placeholder="Pin">
+		<form action="" method="POST" id="formPin" class="form">  
+	    	<input type="Password" id="idPin" name="namePin" placeholder="Pin" require>
 	  		<input type="submit" value="Submit">
 	  		<!--<div id="idLogodiv">
 	  			<img id="idAccountlogo" src="./images/SBL1.png"></img>
 	  		</div>-->
+		</form>
+		<div id="divPhpMessage">
+			<h4 name="h1PHPMessage" id="h1PHPMessage" class="phpDescription"><?php echo $status ?></h4>
 		</div>
-		<div id="idLogodiv">
+		<!--<div id="idLogodiv">
 	  			<img id="idAccountlogo" src="./images/yourlogo.png"></img>
-	  	</div>
+	  	</div>-->
 	</div>
 		
 </body>

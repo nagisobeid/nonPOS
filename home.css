@@ -55,10 +55,9 @@ input[type=submit]:hover {
 }
 .form {
   box-shadow: 5px 10px; height: 70%;
-  width: 100%;
   border-radius: 5px;
   background-color: #f2f2f2;
-  padding: 20px;
+  /*margin: 0 20%;*/
   text-align: center;
   grid-column-start: 3;
   grid-column-end: 5;
@@ -77,12 +76,12 @@ input[type=submit]:hover {
   padding-top: 50px;
 }
 #idPosRegister {
-  margin-top: 15px;
+  margin-top: 25px;
 }
 
 @media screen and (max-height: 3000px) {
   .form {
-   height: 300px;
+   height: 275px;
    } 
  }
 

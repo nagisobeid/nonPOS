@@ -98,12 +98,12 @@ input[type=submit]:hover {
   margin-top: 10px;
 }
 #idFname {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 @media screen and (max-height: 3000px) {
   .form {
-    height: 610px;
+    height: 605px;
    } 
    html {
     height: 900px;

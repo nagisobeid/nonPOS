@@ -75,13 +75,17 @@ input[type=submit]:hover {
   color: white;
   padding-top: 40px;
 }
+
 #idBtnPosRegister {
+
   margin-top: 25px;
 }
 
 @media screen and (max-height: 3000px) {
   .form {
+
    height: 320px;
+
    } 
  }
 

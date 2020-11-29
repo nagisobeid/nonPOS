@@ -60,7 +60,7 @@ input[type=submit]:hover {
 	display: grid;
   height: 100%;
 	grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: auto repeat(6, 1fr);
 }
 .form {
   box-shadow: 5px 10px; height: 70%;
@@ -82,7 +82,7 @@ input[type=submit]:hover {
 }
 .description {
   color: white;
-  padding-top: 50px;
+  padding-top: 40px;
 }
 
 #divPhpMessage {
@@ -98,12 +98,12 @@ input[type=submit]:hover {
   margin-top: 10px;
 }
 #idFname {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 @media screen and (max-height: 3000px) {
   .form {
-    height: 610px;
+    height: 605px;
    } 
    html {
     height: 900px;
@@ -127,6 +127,8 @@ input[type=submit]:hover {
   .form {
     grid-column-start: 1;
     grid-column-end: 7;
+    margin-left: 40px;
+    margin-right: 40px;
   }
 }
 /*---------------MEDIA QUERIES-------------*/

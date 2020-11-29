@@ -14,6 +14,8 @@
   	$con = $obj->connect();
 
 	$status = "";
+	$_SESSION['currentEmployeePin'] = null;
+	$_SESSION['currentEmployeePermissions'] = null;
    
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$pin = $_POST['namePin']; 
@@ -27,6 +29,9 @@
 		if ($employee and $employee['ePass'] == $pin) {
 			#$status = $employee['fName'];
 			#header("location: home.php");
+			$_SESSION['currentEmployeePin'] = $pin;
+			$_SESSION['currentEmployeePermissions'] = $employee['permissions'];
+			header("location: home.php");
 		}
 		else {
 			$status = "Invalid Pin";
@@ -66,16 +71,10 @@
 		<form action="" method="POST" id="formPin" class="form">  
 	    	<input type="Password" id="idPin" name="namePin" placeholder="Pin" require>
 	  		<input type="submit" value="Submit">
-	  		<!--<div id="idLogodiv">
-	  			<img id="idAccountlogo" src="./images/SBL1.png"></img>
-	  		</div>-->
 		</form>
 		<div id="divPhpMessage">
 			<h4 name="h1PHPMessage" id="h1PHPMessage" class="phpDescription"><?php echo $status ?></h4>
 		</div>
-		<!--<div id="idLogodiv">
-	  			<img id="idAccountlogo" src="./images/yourlogo.png"></img>
-	  	</div>-->
 	</div>
 		
 </body>

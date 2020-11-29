@@ -51,14 +51,13 @@ input[type=submit]:hover {
 	display: grid;
   height: 100%;
 	grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: auto repeat(6, 1fr);
 }
 .form {
   box-shadow: 5px 10px; height: 70%;
-  width: 100%;
   border-radius: 5px;
   background-color: #f2f2f2;
-  padding: 20px;
+  /*margin: 0 20%;*/
   text-align: center;
   grid-column-start: 3;
   grid-column-end: 5;
@@ -74,15 +73,15 @@ input[type=submit]:hover {
 }
 .description {
   color: white;
-  padding-top: 50px;
+  padding-top: 40px;
 }
-#idPosRegister {
-  margin-top: 15px;
+#idBtnPosRegister {
+  margin-top: 25px;
 }
 
 @media screen and (max-height: 3000px) {
   .form {
-   height: 300px;
+   height: 320px;
    } 
  }
 
@@ -103,6 +102,8 @@ input[type=submit]:hover {
   .form {
     grid-column-start: 1;
     grid-column-end: 7;
+    margin-left: 40px;
+    margin-right: 40px;
   }
 }
 

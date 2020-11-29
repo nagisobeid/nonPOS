@@ -1,8 +1,12 @@
 <?php
 	session_start();
-	if (isset($_SESSION['auth']))
+	if (isset($_SESSION['auth']) and ($_SESSION['currentEmployeePermissions'] == 1 or $_SESSION['currentEmployeePermissions'] == 2))
 	{
 		header("location: home.php");
+    	exit;
+	} elseif (isset($_SESSION['auth']) and ($_SESSION['currentEmployeePermissions'] == null))
+	{
+		header("location: pin.php");
     	exit;
 	}
 	
@@ -11,7 +15,7 @@
   	$obj = new DBH;
   	$con = $obj->connect();
 
-	  $status = "";
+	$status = "";
    
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$username = $_POST['nameUsername'];
@@ -34,6 +38,7 @@
 			$_SESSION['username'] = $username;
 			$_SESSION['auth']=true;
 			$status = "";
+			$_SESSION['currentEmployeePermissions'] = 1;
 			header("location: home.php");
 		}
 		else {
@@ -69,7 +74,8 @@
 	<div class="container">
 		<div class="formDescription">
 			<h1 class="description">Login</h1>
-		</div> 
+		</div>
+		
 		<form action="" method="POST" id="formLogin" class="form">
 	    	<input class="inputForm" type="text" id="idUsername" name="nameUsername" placeholder="Username" require>
 	    	<input class="inputForm" type="Password" id="idPassword" name="namePassword" placeholder="Password" require>

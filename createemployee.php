@@ -5,7 +5,17 @@
 	{
 		header("location: login.php");
     	exit;
-    }
+    } elseif (isset($_SESSION['auth']) and ($_SESSION['currentEmployeePermissions'] == null ))
+	{
+		header("location: pin.php");
+    	exit;
+	} elseif (isset($_SESSION['auth']) and ($_SESSION['currentEmployeePermissions'] == 2 ))
+	{
+		header("location: home.php");
+    	exit;
+	}
+
+
     include_once 'db.php';
 	$obj = new DBH;
 	$con = $obj->connect();
@@ -77,9 +87,10 @@
                     #header("location: home.php");
                     
                     if($permissions == '1') {
-					    header("location: home.php");
+                        #header("location: home.php");
+                        $status = "Manager Created";
                     } elseif($permissions == '2') {
-                        echo ("not manager");
+                        $status = "Employee Created";
                     }
                 }
         }	  	
@@ -104,7 +115,7 @@
 <header>
 	<div id="main-bar">
 		<img id="logo" src="./images/logo2.png"></img>
-		<button onclick="document.location='index.php'" type="button" id="idBtnHome" class="btn btn-link">Home</button>
+		<button onclick="document.location='home.php'" type="button" id="idBtnHome" class="btn btn-link">Home</button>
 		<button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
 	</div>
 </header>

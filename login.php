@@ -21,18 +21,18 @@
 		$username = $_POST['nameUsername'];
 		$password = $_POST['namePassword']; 
 		
-		$sql = "SELECT * FROM users WHERE username = '$username'";
+		$sql = "SELECT * FROM owners WHERE username = '$username'";
 		$result = $con->prepare($sql);
 		$result->execute();
 
-		$user = $result->fetch();
+		$owner = $result->fetch();
 		#echo $user['bName'];
 		
 		$hashed_password = crypt($password, 'CRYPT_BLOWFISH');
-        if ($user and ($user['uPass'] == $hashed_password)) {	
-			$bname = $user['bName'];
-			$bID = $user['bID'];
-			$username = $user['username'];
+        if ($owner and ($owner['uPass'] == $hashed_password)) {	
+			$bname = $owner['bName'];
+			$bID = $owner['bID'];
+			$username = $owner['username'];
 			$_SESSION['bname'] = $bname;
 			$_SESSION['bid'] = $bID;
 			$_SESSION['username'] = $username;

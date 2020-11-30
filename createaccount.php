@@ -22,8 +22,8 @@
 		$password = $_POST['namePassword'];
 		$passwordRepeat = $_POST['namePasswordRepeat'];
 
-		$sql_u = "SELECT * FROM users WHERE username='$username'";
-		$sql_e = "SELECT * FROM users WHERE uEmail='$email'";
+		$sql_u = "SELECT * FROM owners WHERE username='$username'";
+		$sql_e = "SELECT * FROM owners WHERE uEmail='$email'";
 		$res_u = $con->prepare($sql_u);
 		$res_e = $con->prepare($sql_e); 
 		$res_u->execute();
@@ -44,7 +44,7 @@
 				if ($passwordRepeat != $password) {
 					$status = "Passwords must match";
 				} else {
-					$sql = "INSERT INTO users (username, uEmail, fName, lName, bName, uPass) 
+					$sql = "INSERT INTO owners (username, uEmail, fName, lName, bName, uPass) 
 					VALUES (:username, :uEmail, :fName, :lName, :bName, :uPass)";
 
 					#$hashedPW = password_hash($password, PASSWORD_BCRYPT);
@@ -54,11 +54,11 @@
 					$stmt->execute(['username' => $username, 'uEmail' => $email, 'fName' => $fname, 
 									'lName' => $lname, 'bName' => $bname, 'uPass'=> $hashedPW]);
 					
-					$sql = "SELECT * FROM users WHERE username='$username'";
+					$sql = "SELECT * FROM owners WHERE username='$username'";
 					$res = $con->prepare($sql); 
 					$res->execute();
-					$user = $res->fetch();
-					$bID = $user['bID'];
+					$owner = $res->fetch();
+					$bID = $owner['bID'];
 						
 					$_SESSION['bname'] = $bname;
 					$_SESSION['bid'] = $bID;

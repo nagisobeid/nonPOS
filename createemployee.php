@@ -1,20 +1,28 @@
 <?php
     session_start();
 
+        #IF NOT LOGGED IN OR NO ACCOUNT CREATED
     if (!isset($_SESSION['auth']))# and ($_SESSION['firstLogin'] == false))
 	{
 		header("location: login.php");
-    	exit;
-    } elseif (isset($_SESSION['auth']) and ($_SESSION['currentEmployeePermissions'] == null ))
+        exit;
+    } elseif (isset($_SESSION['auth']) and (!isset($_SESSION['currentEmployeePermissions']))
+                and !isset($_SESSION['firstLogin']))
+    {
+        #IF LOGGID IN AND NO EMPLOYEE PIN DETECTED
+        header("location: pin.php");
+        exit;
+    } elseif (isset($_SESSION['auth']) and isset($_SESSION['currentEmployeePermissions']))
 	{
-		header("location: pin.php");
-    	exit;
-	} elseif (isset($_SESSION['auth']) and ($_SESSION['currentEmployeePermissions'] == 2 ))
-	{
-		header("location: home.php");
-    	exit;
-	}
-
+        #IF LOGGID IN AND EMPLOYEE IS DETECTED
+        #IF NOT MANAGER
+        if ($_SESSION['currentEmployeePermissions'] == 2) {
+		    header("location: home.php");
+            exit;
+        }
+    }
+    
+    #ONLY REACH THIS POINT IF FIRST LOGIN OR IS MANAGER
 
     include_once 'db.php';
 	$obj = new DBH;
@@ -44,14 +52,14 @@
 
         $username = $_SESSION['username'];
         #$sql = "SELECT * FROM employees WHERE ePass='$password'";
-        $sql_b = "SELECT * FROM users WHERE username='$username'";
+        $sql_b = "SELECT * FROM owners WHERE username='$username'";
         #$res = $con->prepare($sql);
         $res_b = $con->prepare($sql_b);
         #$res->execute();
         $res_b->execute();
         #$employee = $res->fetch();
-        $user = $res_b->fetch();
-        $bID = $user['bID'];
+        $owner = $res_b->fetch();
+        $bID = $owner['bID'];
 
         $sql_u = "SELECT * FROM employees WHERE ePass='$password' AND bID='$bID'";
         $res = $con->prepare($sql_u);

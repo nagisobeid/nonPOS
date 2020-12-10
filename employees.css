@@ -1,0 +1,34 @@
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	background: rgb(129,123,126);
+	background: radial-gradient(circle, rgba(129,123,126,1) 0%, rgba(78,80,83,1) 100%);
+}
+#main-bar {
+	width: 100%;
+	height: 55px;
+	background-color: #24282e;
+}
+#logo {
+	width: 125px;
+}
+
+#idBtnHome {
+	position: absolute;
+	right: 100px;
+	top: 10px;
+	color: white;
+}
+
+#idBtnAboutus {
+	position: absolute;
+	right: 20px;
+	top: 10px;
+	color: white;
+}
+
+/*---------------------*/

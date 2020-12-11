@@ -23,7 +23,7 @@
 		$passwordRepeat = $_POST['namePasswordRepeat'];
 
 		$sql_u = "SELECT * FROM owners WHERE username='$username'";
-		$sql_e = "SELECT * FROM owners WHERE uEmail='$email'";
+		$sql_e = "SELECT * FROM owners WHERE email='$email'";
 		$res_u = $con->prepare($sql_u);
 		$res_e = $con->prepare($sql_e); 
 		$res_u->execute();
@@ -44,15 +44,15 @@
 				if ($passwordRepeat != $password) {
 					$status = "Passwords must match";
 				} else {
-					$sql = "INSERT INTO owners (username, uEmail, fName, lName, bName, uPass) 
-					VALUES (:username, :uEmail, :fName, :lName, :bName, :uPass)";
+					$sql = "INSERT INTO owners (username, email, fName, lName, bName, password) 
+					VALUES (:username, :email, :fName, :lName, :bName, :password)";
 
 					#$hashedPW = password_hash($password, PASSWORD_BCRYPT);
 					$hashedPW = crypt($password, 'CRYPT_BLOWFISH');
 				
 					$stmt = $con->prepare($sql);
-					$stmt->execute(['username' => $username, 'uEmail' => $email, 'fName' => $fname, 
-									'lName' => $lname, 'bName' => $bname, 'uPass'=> $hashedPW]);
+					$stmt->execute(['username' => $username, 'email' => $email, 'fName' => $fname, 
+									'lName' => $lname, 'bName' => $bname, 'password'=> $hashedPW]);
 					
 					$sql = "SELECT * FROM owners WHERE username='$username'";
 					$res = $con->prepare($sql); 

@@ -29,7 +29,7 @@
 		#echo $user['bName'];
 		
 		$hashed_password = crypt($password, 'CRYPT_BLOWFISH');
-        if ($owner and ($owner['uPass'] == $hashed_password)) {	
+        if ($owner and ($owner['password'] == $hashed_password)) {	
 			$bname = $owner['bName'];
 			$bID = $owner['bID'];
 			$username = $owner['username'];

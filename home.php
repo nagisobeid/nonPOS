@@ -55,8 +55,8 @@
 		<div class="form">  
 			<input id="idBtnPosRegister" onclick="document.location='register.php'" action="" method="POST" type="submit" value="POS Register">
 			<input id="idBtnSales" type="submit" value="Sales">
-			<input id="idBtnEmployees" type="submit" value="Employees">
 			<input id="idBtnMenu" onclick="document.location='menu.php'" type="submit" value="Menu">
+			<input id="idBtnEmployees" onclick="document.location='employees.php'" type="submit" value="Employees">
 			<input id="idBtnSettings" type="submit" value="Settings">
 			<input id="itBtnEmployeePin" onclick="document.location='pin.php'" type="submit" value="Employee Login">
 		</div>

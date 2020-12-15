@@ -23,16 +23,19 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/JavaScript">
+		
     	$(document).ready(function() {
 			var currentEmployeePermissions = '<?php echo $_SESSION['currentEmployeePermissions']; ?>';
-			//console.log(currentEmployeePermissions);
 			if (currentEmployeePermissions == 2) {
 				$("#idBtnSales").hide();
 				$("#idBtnMenu").hide();
 				$("#idBtnSettings").hide();
 				$(".form").css("height", "190px");
+				$(".form").css("display","visible");
+			} else {
+				$(".form").css("display","visible");
 			}
-    	}); 
+		}); 
 	</script>
 
 </head>
@@ -50,10 +53,10 @@
 			<h1 class="description"><?= $_SESSION['bname']?></h1>
 		</div>
 		<div class="form">  
-			<input id="idBtnPosRegister" action="" method="POST" type="submit" value="POS Register">
+			<input id="idBtnPosRegister" onclick="document.location='register.php'" action="" method="POST" type="submit" value="POS Register">
 			<input id="idBtnSales" type="submit" value="Sales">
+			<input id="idBtnMenu" onclick="document.location='menu.php'" type="submit" value="Menu">
 			<input id="idBtnEmployees" onclick="document.location='employees.php'" type="submit" value="Employees">
-			<input id="idBtnMenu" type="submit" value="Menu">
 			<input id="idBtnSettings" type="submit" value="Settings">
 			<input id="itBtnEmployeePin" onclick="document.location='pin.php'" type="submit" value="Employee Login">
 		</div>

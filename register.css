@@ -1,0 +1,38 @@
+html {
+  height: 100%;
+}
+body {
+  background: white;
+}
+#main-bar {
+	width: 100%;
+	height: 55px;
+	background-color: #24282e;
+}
+#logo {
+	width: 125px;
+}
+
+#idBtnHome {
+  position: absolute;
+  right: 100px;
+  top: 10px;
+  color: white;
+}
+
+#idBtnAboutus {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  color: white;
+}
+
+.t{
+  display: table-cell !important;
+  vertical-align: middle;
+}
+.mine{
+  display: table !important;
+  table-layout: fixed !important;
+  box-sizing: border-box;
+}

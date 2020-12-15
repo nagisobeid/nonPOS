@@ -76,15 +76,15 @@
 		} else if($permissions != '1' and isset($_SESSION['firstLogin'])) {
             $status = "First User Must Have Manager Permissions(1)";
         } else {  
-                    $sql = "INSERT INTO employees (fName, lName, dob, ePass, address, city, state, zip, phone, permissions, payRate, bID)
-                    VALUES (:fName, :lName, :dob, :ePass, :address, :city, :state, :zip, :phone, :permissions, :payRate, :bID)";
+                    $sql = "INSERT INTO employees (fName, lName, dob, ePass, address, city, state, zip, phone, permisions, payRate, bID)
+                    VALUES (:fName, :lName, :dob, :ePass, :address, :city, :state, :zip, :phone, :permisions, :payRate, :bID)";
                     #VALUES (:fname,:lname,:dob,:password,:address, :city, :state,:zip,:phone,:permissions,:payrate,bID)";
 				
 					$stmt = $con->prepare($sql);
 					$stmt->execute(['fName' => $fname, 'lName' => $lname, 'dob' => $dob, 
                                     'ePass' => $password, 'address' => $address, 'city'=> $city,
                                     'state' => $state, 'zip' => $zip, 'phone'=> $phone,
-                                    'permissions' => $permissions, 'payRate' => $payrate, 'bID'=> $bID]);
+                                    'permisions' => $permissions, 'payRate' => $payrate, 'bID'=> $bID]);
                     
                     if(isset($_SESSION['firstLogin'])) {
                         unset ($_SESSION["firstLogin"]);

@@ -1,0 +1,81 @@
+html {
+  height: 100%;
+}
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+  background: white;
+}
+#main-bar {
+	width: 100%;
+	height: 55px;
+	background-color: #24282e;
+}
+#logo {
+	width: 125px;
+}
+
+#idBtnHome {
+  position: absolute;
+  right: 100px;
+  top: 10px;
+  color: white;
+}
+
+#idBtnAboutus {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  color: white;
+}
+.nav-link {
+  font-weight: 700;
+  border-radius: 0px !important;
+  background-color: #24282e;
+  color: white;
+}
+
+.selected {
+  background-color: #337ABC;
+  color: white !important;
+  width: 100% !important;
+}/*
+.row{
+  margin: 0px 0px !important;
+}*/
+#sideCol{
+  padding-left: 15px !important;
+  padding-right: 0px !important;
+  background-color: #2b2e33 !important;
+}
+form{
+  padding-top: 10px;
+}
+#last{
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+/*----------------------------------*/
+
+.nav-link:hover {
+  background-color: #729ac0;
+  color: white;
+}
+.fullHeight{
+  height: 100% !important;
+}
+.noPadding{
+  padding: 0px 0px !important;
+}
+.firstRow{
+  margin-top: 20px;
+}
+.noRadius{
+  border-radius: 0px !important;
+}
+
+
+
+
+

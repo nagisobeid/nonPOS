@@ -54,6 +54,7 @@ input[type=submit]:hover {
   grid-template-rows: auto repeat(6, 1fr);
 }
 .form {
+  display: hidden;
   box-shadow: 5px 10px; height: 70%;
   border-radius: 5px;
   background-color: #f2f2f2;

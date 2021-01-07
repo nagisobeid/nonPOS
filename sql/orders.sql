@@ -5,7 +5,9 @@ CREATE TABLE IF NOT EXISTS orders(
 	completed date NOT NULL,
 	dt boolean NOT NULL,
 	eID integer NOT NULL,
+	bID integer NOT NULL
 	PRIMARY KEY (oID),
+	FOREIGN KEY (bID) REFERENCES owners(bID),
 	FOREIGN KEY (username) REFERENCES users(username),
 	FOREIGN KEY (eID) REFERENCES employees(eID)
 );

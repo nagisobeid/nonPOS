@@ -2,7 +2,7 @@ html {
   height: 100%;
 }
 body {
-	height: 100%;
+	height: calc(100% - 55px);
 	margin: 0px;
 	padding: 0px;
   background: white;
@@ -49,6 +49,10 @@ body {
   padding-right: 0px !important;
   background-color: #2b2e33 !important;
 }
+#sideCol2{
+  height: 100%;;
+  overflow-y: auto !important;
+}
 form{
   padding-top: 10px;
 }
@@ -73,6 +77,10 @@ form{
 }
 .noRadius{
   border-radius: 0px !important;
+}
+.modifierPadding{
+  padding-right: 7px !important;
+  padding-left: 0px !important;
 }
 
 

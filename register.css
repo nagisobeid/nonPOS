@@ -1,11 +1,15 @@
 html {
   height: 100%;
+  width: 100%;
+  overflow-x: hidden; 
+  margin-left: 0px;
 }
 body {
-	height: calc(100% - 55px);
+	height: 100%;
 	margin: 0px;
 	padding: 0px;
   background: white;
+  width: 100%;
 }
 #main-bar {
 	width: 100%;
@@ -35,16 +39,25 @@ body {
   background-color: #24282e;
   color: white;
 }
+.row {  
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+      height: calc(100% - 55px) !important;
+}
 
 .selected {
   background-color: #337ABC;
   color: white !important;
   width: 100% !important;
-}/*
-.row{
-  margin: 0px 0px !important;
-}*/
+}
+#sideCol2{
+  overflow-x: auto;
+  height: 100%);
+}
 #sideCol{
+  /*height: calc(100% - 55px);*/
+  height: 100%);
+  right: 1px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
   background-color: #2b2e33 !important;
@@ -118,6 +131,15 @@ form{
 #orderDetails {
   height: calc(100vh - 205.50px)
 }
+#orderSection {
+  height: 100%;
+}
+#orderSection2{
+max-height: 100%;
+}
+#v-pills-Order{
+  height: 100% ;
+}
 .checkoutOptions {
   display: flex;
   flex-wrap: wrap;
@@ -141,8 +163,8 @@ form{
   border-radius: 5px;
   border-width: 0em;
 }
-
-@media only screen and (max-width: 768px) {
+/* <= 991*/
+@media only screen and (max-width: 991px) {
   #orderSection{
     display: none;
   }
@@ -150,8 +172,29 @@ form{
     display: block;
   }
 }
-@media only screen and (min-width: 769px) {
+/* > 992*/
+@media only screen and (min-width: 992px) {
   #v-pills-Order{
     display: none;
   }
 }
+@media only screen and (max-width: 525px) {
+    #orderSection2 #orderDetails {
+        height: 463.415px;
+    }
+}
+/* <= 767*//*
+@media only screen and (max-width: 767px) {
+  #orderSection{
+    display: none;
+  }
+  #v-pills-Order-tab {
+    display: block;
+  }
+}
+/* > 767
+@media only screen and (min-width: 768px) {
+  #v-pills-Order{
+    display: none;
+  }
+}*/

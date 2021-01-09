@@ -182,9 +182,9 @@
             <button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
         </div>
     </header>
-    <div class="row flex-nowrap" style="width: 100% !important; height: calc(100vh - 55px) !important; margin: 0px 0px !important;">
+    <div class="row flex-nowrap" style="width: 100% !important;">
          <!-- LEFT PANE <div class="row" style="width: 100% !important; height: 100% !important; overflow:auto !important;"> -->
-        <div class=" col-md-2 col-xs-4 bg-light" style="height: 100% !important;" id="sideCol">
+        <div class="col-lg-3 col-md-3 col-xs-4 bg-light" id="sideCol">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
     
             </div>
@@ -192,7 +192,7 @@
                     role="tab" aria-controls="v-pills-Order" aria-selected="false">Order Details</a>
         </div>
         <!-- MIDDLE PANE -->
-        <div class="col-md-7 col-xs-8" id="sideCol2">
+        <div class="col-lg-6 col-md-9 col-xs-8" id="sideCol2">
             <div id="divMultiplier">
                 <button type="submit" class=" btn btn-primary t posBtns mainMultiplierBtn">1</button>
                 <button type="submit" class=" btn btn-primary t posBtns mainMultiplierBtn">2</button>
@@ -211,7 +211,7 @@
                         <form id="form">
                             <div id="idOrderGrid" class="form-row">
                             <!-- DETAILS GOES HERE-->
-                            <div class="col-md-3 bg-light" style="height: 100% !important;" id="orderSection2">
+                            <div class="col-lg-12 bg-light" style="height: 100% !important;" id="orderSection2">
                                 <div id="divOrderType">
                                     <button type="submit" class=" btn btn-primary t posBtns orderType">Dine-In</button>
                                     <button type="submit" class=" btn btn-primary t posBtns orderType">Take-Out</button>
@@ -226,8 +226,8 @@
                                     <span style="text-align: right; width: 50%; font-weight:800;" type="text" class=" btn btn-white t posBtns text-danger">$65.67</span>
                                 </div>
                                 <div id="" class="checkoutOptions">
-                                    <button style="border-radius: 0px;" type="submit" class=" btn btn-primary t posBtns">SAVE</button>
-                                    <button style="border-radius: 0px;" type="submit" class=" btn btn-success t posBtns">CHARGE</button>
+                                    <button style="border-radius: 0px; padding-bottom: 10px;" type="submit" class=" btn btn-primary t posBtns">SAVE</button>
+                                    <button style="border-radius: 0px; padding-bottom: 10px;" type="submit" class=" btn btn-success t posBtns">CHARGE</button>
                                 </div>
                             </div>
                             <!-- DETAILS ENDS HERE-->
@@ -241,7 +241,7 @@
 
         </div>
         <!-- RIGHT PANE-->
-        <div class="col-md-3 bg-light" style="height: 100% !important;" id="orderSection">
+        <div class="col-lg-3  bg-light" style="height: 100% !important;" id="orderSection">
             <div id="divOrderType">
                 <button type="submit" class=" btn btn-primary t posBtns orderType">Dine-In</button>
                 <button type="submit" class=" btn btn-primary t posBtns orderType">Take-Out</button>

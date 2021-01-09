@@ -162,9 +162,9 @@
             <button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
         </div>
     </header>
-    <div class="row" style="width: 100% !important; height: 100% !important; margin:0px 0px !important;">
+    <div class="row flex-nowrap" style="width: 100% !important; height: 100% !important;">
          <!-- LEFT PANE -->
-        <div class=" col-md-3 col-xs-4 bg-light" style="height: 100% !important; padding-left: 0px !important;" id="sideCol">
+        <div class=" col-md-3 col-xs-4 bg-light" style="height: 100% !important;" id="sideCol">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link selected" id="v-pills-addCategory-tab" data-toggle="pill" href="#v-pills-addCategory"
                     role="tab" aria-controls="v-pills-addCategory" aria-selected="false">Add Category</a>

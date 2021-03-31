@@ -2,7 +2,7 @@ html {
 	height: 100%;
 }
 body {
-	height: calc(100% - 55px);
+	height: 100%;
 	margin: 0px;
 	padding: 0px;
 	background: rgb(129,123,126);
@@ -31,22 +31,23 @@ body {
   color: white;
 }
 
-/*--------------*/
+/*--------------
 input[type=text],[type=Email], [type=Password], select {
   width: 85%;
   padding: 12px 20px;
+  margin: 1% 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-top: 2px;
-}
+  box-sizing: border-box;
+}*/
 
 input[type=submit] {
-  width: 85%;
+  width: 25%;
   background-color: #337ABC;
   color: white;
-  padding: 12px 20px;
-  margin-top: 2px;
+  padding: 4px 8px;
+  float: right;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -57,21 +58,21 @@ input[type=submit]:hover {
 }
 
 .container {
-	display: grid;
+  display: grid;
   height: 100%;
-	grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: auto repeat(6, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
 }
 .form {
   box-shadow: 5px 10px; height: 70%;
   border-radius: 5px;
+  padding: 20px;
+  text-align: left;
   background-color: #f2f2f2;
-  /*margin: 0 20%;*/
-  text-align: center;
   grid-column-start: 3;
   grid-column-end: 5;
   grid-row-start: 2;
-  /*grid-row-end: 4;*/
+  grid-row-end: 3;
 }
 .formDescription {
   grid-column-start: 1;
@@ -82,25 +83,13 @@ input[type=submit]:hover {
 }
 .description {
   color: white;
-  padding-top: 40px;
-}
-#idFname {
-  margin-top: 25px;
-}
-#divPhpMessage {
-  font-family: Arial, Helvetica, sans-serif;
-  color:white;
-  grid-column-start: 1;
-  grid-column-end: 7;
-  grid-row-start: 3;
-  grid-row-end: 4;
-  text-align: center;
+  padding-top: 50px;
 }
 
 
 @media screen and (max-height: 3000px) {
   .form {
-   height: 425px;
+   height: 160px;
    } 
  }
 
@@ -110,63 +99,16 @@ input[type=submit]:hover {
    }
  }
 
-/*774*/
- @media screen and (max-width: 992px) {
+
+ @media screen and (max-width: 774px) {
   .form {
     grid-column-start: 2;
     grid-column-end: 6;
   }
 }
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 400px) {
   .form {
     grid-column-start: 1;
     grid-column-end: 7;
-    margin-left: 40px;
-    margin-right: 40px;
   }
 }
-/*---------------MEDIA QUERIES-------------*/
-
-/*---------------HEIGHT-------------
-@media screen and (max-height: 3000px) {
- .form {
-  height: 415px;
-  } 
-}
-
-@media screen and (max-height: 550px) {
-  html {
-    height: 550px;
-  }
-}
-
-
-/*---------------WIDTH-------------
-@media screen and (max-width: 991px) {
- .form {
-  height: 400px;
-  } 
-}
-
-@media screen and (max-width: 770px) {
- .form {
-  height: 380px;
-  } 
-}
-
-@media screen and (max-width: 500px) {
-  .form {
-    margin: 0
-  }
-  input[type=text],[type=Email], [type=Password], select {
-  width: 80%;
-  }
-  input[type=submit] {
-  width: 60%;
-  }
-
-  .formDescription {
-    margin: 0
-  }
-}
-

@@ -1,16 +1,40 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['auth']) and !isset($_SESSION['firstLogin']))
+        #IF NOT LOGGED IN OR NO ACCOUNT CREATED
+    if (!isset($_SESSION['auth']))# and ($_SESSION['firstLogin'] == false))
 	{
 		header("location: login.php");
-    	exit;
+        exit;
+    } elseif (isset($_SESSION['auth']) and (!isset($_SESSION['currentEmployeePermissions']))
+                and !isset($_SESSION['firstLogin']))
+    {
+        #IF LOGGID IN AND NO EMPLOYEE PIN DETECTED
+        header("location: pin.php");
+        exit;
+    } elseif (isset($_SESSION['auth']) and isset($_SESSION['currentEmployeePermissions']))
+	{
+        #IF LOGGID IN AND EMPLOYEE IS DETECTED
+        #IF NOT MANAGER
+        if ($_SESSION['currentEmployeePermissions'] == 2) {
+		    header("location: home.php");
+            exit;
+        }
     }
+    
+    #ONLY REACH THIS POINT IF FIRST LOGIN OR IS MANAGER
+
     include_once 'db.php';
 	$obj = new DBH;
 	$con = $obj->connect();
     
-    $desc = "Create Manager";
+    if (isset($_SESSION['firstLogin'])) {
+        $desc = "Create Manager";
+        #unset ($_SESSION["firstLogin"]);
+    } else {
+        $desc = "Create Employee";
+    }
+    
 	$status = "";
     
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -27,16 +51,21 @@
         $dob = $_POST['nameDOB'];     
 
         $username = $_SESSION['username'];
-
-        $sql = "SELECT * FROM employees WHERE ePass='$password'";
+        #$sql = "SELECT * FROM employees WHERE ePass='$password'";
         $sql_b = "SELECT * FROM owners WHERE username='$username'";
-        $res = $con->prepare($sql);
+        #$res = $con->prepare($sql);
         $res_b = $con->prepare($sql_b);
-        $res->execute();
+        #$res->execute();
         $res_b->execute();
-        $employee = $res->fetch();
+        #$employee = $res->fetch();
         $owner = $res_b->fetch();
         $bID = $owner['bID'];
+
+        $sql_u = "SELECT * FROM employees WHERE ePass='$password' AND bID='$bID'";
+        $res = $con->prepare($sql_u);
+        $res->execute();
+        $employee = $res->fetch();
+
         if(empty($fname) || empty($lname) ||empty($password) || 
             empty($address) || empty($city) || empty($state) || 
             empty($zip) || empty($phone) || empty($permissions) || empty($payrate)) {
@@ -44,7 +73,9 @@
 		}
 		else if ($res->rowCount() > 0) {
 			$status = "Passcode Already Exists";
-		}  else {  
+		} else if($permissions != '1' and isset($_SESSION['firstLogin'])) {
+            $status = "First User Must Have Manager Permissions(1)";
+        } else {  
                     $sql = "INSERT INTO employees (fName, lName, dob, ePass, address, city, state, zip, phone, permisions, payRate, bID)
                     VALUES (:fName, :lName, :dob, :ePass, :address, :city, :state, :zip, :phone, :permisions, :payRate, :bID)";
                     #VALUES (:fname,:lname,:dob,:password,:address, :city, :state,:zip,:phone,:permissions,:payrate,bID)";
@@ -54,14 +85,20 @@
                                     'ePass' => $password, 'address' => $address, 'city'=> $city,
                                     'state' => $state, 'zip' => $zip, 'phone'=> $phone,
                                     'permisions' => $permissions, 'payRate' => $payrate, 'bID'=> $bID]);
+                    
+                    if(isset($_SESSION['firstLogin'])) {
+                        unset ($_SESSION["firstLogin"]);
+                    }
 						
-					$_SESSION['auth']=true;
+                    #$_SESSION['auth']=true;
+                    
                     #header("location: home.php");
                     
                     if($permissions == '1') {
-					    header("location: home.php");
+                        #header("location: home.php");
+                        $status = "Manager Created";
                     } elseif($permissions == '2') {
-                        echo ("not manager");
+                        $status = "Employee Created";
                     }
                 }
         }	  	
@@ -86,7 +123,7 @@
 <header>
 	<div id="main-bar">
 		<img id="logo" src="./images/logo2.png"></img>
-		<button onclick="document.location='index.php'" type="button" id="idBtnHome" class="btn btn-link">Home</button>
+		<button onclick="document.location='home.php'" type="button" id="idBtnHome" class="btn btn-link">Home</button>
 		<button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
 	</div>
 </header>

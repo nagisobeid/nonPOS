@@ -2,7 +2,7 @@ html {
 	height: 100%;
 }
 body {
-	height: 100%;
+	height: calc(100% - 55px);
 	margin: 0px;
 	padding: 0px;
 	background: rgb(129,123,126);
@@ -35,21 +35,18 @@ body {
 input[type=text],[type=Email], [type=Password], select {
   width: 85%;
   padding: 12px 20px;
-  /*margin: 8px 0;*/
-  margin: 1% 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
+  margin-top: 2px;
 }
 
 input[type=submit] {
   width: 85%;
   background-color: #337ABC;
   color: white;
-  padding: 14px 20px;
-  /*margin: 8px 0;*/
-  margin: 1% 0;
+  padding: 12px 20px;
+  margin-top: 2px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -63,7 +60,7 @@ input[type=submit]:hover {
 	display: grid;
   height: 100%;
 	grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: auto repeat(6, 1fr);
 }
 .form {
   box-shadow: 5px 10px; height: 70%;
@@ -85,11 +82,9 @@ input[type=submit]:hover {
 }
 .description {
   color: white;
-  padding-top: 50px;
+  padding-top: 40px;
 }
-#idFname {
-  margin-top: 30px;
-}
+
 #divPhpMessage {
   font-family: Arial, Helvetica, sans-serif;
   color:white;
@@ -102,10 +97,13 @@ input[type=submit]:hover {
 #idDOB {
   margin-top: 10px;
 }
+#idFname {
+  margin-top: 25px;
+}
 
 @media screen and (max-height: 3000px) {
   .form {
-    height: 680px;
+    height: 605px;
    } 
    html {
     height: 900px;
@@ -125,10 +123,12 @@ input[type=submit]:hover {
     grid-column-end: 6;
   }
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 576px) {
   .form {
     grid-column-start: 1;
     grid-column-end: 7;
+    margin-left: 40px;
+    margin-right: 40px;
   }
 }
 /*---------------MEDIA QUERIES-------------*/

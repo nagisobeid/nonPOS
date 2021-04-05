@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS items(
 	iDescrip varchar(125),
 	price float NOT NULL,
 	menuID integer,
-	extraKey varchar(25),
+	extraKey varchar(250),
 	PRIMARY KEY(itemID),
 	FOREIGN KEY (menuID) REFERENCES menus(menuID)
 );

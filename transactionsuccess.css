@@ -6,11 +6,11 @@ body {
 	margin: 0px;
 	padding: 0px;
 	background: rgb(129,123,126);
-	background: radial-gradient(circle, rgba(129,123,126,1) 0%, rgba(78,80,83,1) 100%);
+	background: radial-gradient(circle, rgb(241, 241, 241) 0%, rgb(251, 251, 251) 100%);
 }
 #main-bar {
 	width: 100%;
-	height: 55px; 
+	height: 55px;
 	background-color: #24282e;
 }
 #logo {
@@ -33,19 +33,20 @@ body {
 }
 
 /*--------------*/
-input[type=submit] {
-  width: 85%;
+#close {
+  width: 100%;
+  height: 50px;
   background-color: #337ABC;
   color: white;
-  padding: 12px 20px;
-  margin-top: 2px;
-  border: none;
+  margin: 2px;
+  border-style: solid;
+  border-color: #b4b4b4;
   border-radius: 4px;
   cursor: pointer;
 }
 
-input[type=submit]:hover {
-  background-color: navy;
+#close:hover {
+  background-color: rgb(103, 145, 194);
 }
 
 .container {
@@ -54,11 +55,12 @@ input[type=submit]:hover {
 	grid-template-columns: repeat(6, 1fr);
   grid-template-rows: auto repeat(6, 1fr);
 }
-.form {
+.divSuccess {
+  margin-top: 50px;
   display: hidden;
-  box-shadow: 5px 10px; height: 70%;
+  height: 90%;
   border-radius: 5px;
-  background-color: #f2f2f2;
+  background-color: none;
   /*margin: 0 20%;*/
   text-align: center;
   grid-column-start: 3;
@@ -86,7 +88,7 @@ input[type=submit]:hover {
 @media screen and (max-height: 3000px) {
   .form {
 
-   height: 320px;
+   height: 110px;
 
    } 
  }
@@ -113,44 +115,3 @@ input[type=submit]:hover {
   }
 }
 
-/*
-@media screen and (max-height: 890px) {
-  .form {
-    grid-row-start: 2;
-    grid-row-end: 5;
-  }
-}
-
-@media screen and (max-height: 645px) {
-  .form {
-    grid-row-start: 2;
-    grid-row-end: 6;
-  }
-}
-
-@media screen and (max-height: 480px) {
-  .form {
-    grid-row-start: 2;
-    grid-row-end: 7;
-  }
-}
-
-
-@media screen and (max-width: 770px) {
-  .form {
-    grid-column-start: 1;
-    grid-column-end: 4;
-  }
-  .formDescription {
-    grid-column-start: 1;
-    grid-column-end: 4;
-  }
-  input[type=text],[type=Email], [type=Password], select {
-  width: 60%;
-  }
-  input[type=submit] {
-  width: 60%;
-  }
-}
-
-/*

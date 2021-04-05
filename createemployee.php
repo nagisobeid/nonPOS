@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
     session_start();
 
         #IF NOT LOGGED IN OR NO ACCOUNT CREATED
@@ -20,7 +24,7 @@
 		    header("location: home.php");
             exit;
         }
-    }
+    } 
     
     #ONLY REACH THIS POINT IF FIRST LOGIN OR IS MANAGER
 

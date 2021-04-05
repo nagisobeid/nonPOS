@@ -18,6 +18,7 @@ body {
 }
 #logo {
 	width: 125px;
+  margin-left: 5px;
 }
 
 #idBtnHome {
@@ -52,11 +53,11 @@ body {
 }
 #sideCol2{
   overflow-x: auto;
-  height: 100%);
+  height: 100%;
 }
 #sideCol{
   /*height: calc(100% - 55px);*/
-  height: 100%);
+  height: 100%;
   right: 1px !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -87,11 +88,11 @@ form{
 .noRadius{
   border-radius: 0px !important;
 }
-
+/*
 .t{
   display: table-cell !important;
   vertical-align: middle;
-}
+}*/
 .mine{
   display: table !important;
   table-layout: fixed !important;
@@ -109,6 +110,14 @@ form{
 #divOrderType>* {
   flex: 1 1 22%;
 }
+#idOrderGrid{
+  height: 100%;
+}
+
+#v-pills-Order{
+  height: 100%;
+}
+
 
 #divMultiplier {
   display: flex;
@@ -117,29 +126,31 @@ form{
 #divMultiplier>* {
   flex: 1 1 9%;
 }
-#itemsGrid {
+.itemsGrid {
   width:100%; 
   height: 65px; 
-  white-space: normal; 
-  text-align: center;
-  color: #337ABC;
-  font-weight: 600;
+  white-space: normal !important; 
+  text-align: center !important;
+  color: #337ABC !important;
+  font-weight: 600 !important;
 }
 #v-pills-Order-tab {
   display: none;
 }
 #orderDetails {
-  height: calc(100vh - 205.50px)
+  height: calc(100vh - 250px) !important;
+}
+#orderDetailsSmall {
+  height: calc(100vh - 370px) !important;
 }
 #orderSection {
   height: 100%;
 }
-#orderSection2{
-max-height: 100%;
+
+.squared{
+  border-radius: 0px !important;
 }
-#v-pills-Order{
-  height: 100% ;
-}
+
 .checkoutOptions {
   display: flex;
   flex-wrap: wrap;
@@ -163,6 +174,82 @@ max-height: 100%;
   border-radius: 5px;
   border-width: 0em;
 }
+.modal-header {
+  display: inline-block !important;
+}
+.titleprice {
+  display: flex;
+  flex-wrap: wrap;
+}
+.divListItem {
+  margin-top: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(106, 190, 223);
+}
+.divListItem>* {
+  flex: 1 1 22%;
+}
+.sectionItemName, .sectionQuantity, .sectionPriceTimesQuantity {
+  font-weight: 800;
+  background-color: white;
+  margin-top: 5px;
+  color: #337ABC;
+}
+.sectionQuantity {
+  text-align: left;
+}
+.sectionItemName {
+  text-align: left;
+}
+.sectionPriceTimesQuantity {
+  text-align: right;
+}
+.listMod {
+  font-size: 8px !important;
+}
+#orderSection2 {
+  height: calc(100% - 120px) !important;
+}
+/*
+.modBtn{
+  padding: 2px !important;
+  height: 34px !important;
+  overflow: hidden;
+}
+.modBtnInnerDiv{
+  display: flex;
+} 
+.divModifierQuantity {
+  flex: 0 0 65%;
+} 
+.divModName {
+  flex: 1;
+  padding-top: 4px !important;
+}  */
+
+.btnModQuantity {
+  padding: 0px 2px 1px 2px;
+  margin-left: 1px;
+  border-radius: 2px;
+  width: 25px;
+  height: 75%;
+  border-style: none;
+  color: white;
+  text-align: center;
+}
+
+.openOrderName {
+  width: 100% !important;
+  margin-top: 3px;
+}
+
+
+
+
 /* <= 991*/
 @media only screen and (max-width: 991px) {
   #orderSection{
@@ -172,6 +259,9 @@ max-height: 100%;
     display: block;
   }
 }
+.scroll {
+  overflow: scroll !important;
+}
 /* > 992*/
 @media only screen and (min-width: 992px) {
   #v-pills-Order{
@@ -180,7 +270,7 @@ max-height: 100%;
 }
 @media only screen and (max-width: 525px) {
     #orderSection2 #orderDetails {
-        height: 463.415px;
+        height: 440.415px;
     }
 }
 /* <= 767*//*

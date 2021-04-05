@@ -39,7 +39,9 @@
 			$_SESSION['auth']=true;
 			$status = "";
 			$_SESSION['currentEmployeePermissions'] = 1;
-			header("location: home.php");
+			$_SESSION['currentEmployee'] = 0;
+			//header("location: home.php");
+			header("location: pin.php");
 		}
 		else {
 			$status = "Username and/or Password is Incorrect";

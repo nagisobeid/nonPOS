@@ -1,0 +1,85 @@
+html {
+    height: 100%;
+    margin-left: 0px;
+    right: 0px !important;
+  }
+  body {
+    height: calc(100% - 55px);
+      margin: 0px;
+      padding: 0px;
+    background: white;
+  }
+  #main-bar {
+      width: 100%;
+      height: 55px;
+    background-color: #24282e;
+  }
+  #logo {
+    width: 125px;
+    margin-left: 5px;
+  }
+  .row {  
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  #idBtnHome {
+    position: absolute;
+    right: 100px;
+    top: 10px;
+    color: white;
+  }
+  
+  #idBtnAboutus {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    color: white;
+  }
+  .nav-link {
+    font-weight: 700;
+    border-radius: 0px !important;
+    background-color: #24282e;
+    color: white !important;
+  }
+  
+  .selected {
+    background-color: #337ABC;
+    color: white !important;
+    width: 100% !important;
+  }
+  
+  #last {
+    right: 0px !important;
+  }
+  #sideCol{
+    right: 1px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    background-color: #2b2e33 !important;
+  }
+  .navbar {
+    text-align: center;
+    padding: 0px !important;
+  }
+  #navbarNav {
+    padding: 0px !important;
+  }
+  #salesOptions {
+    width: 100% !important;
+    left: 0px !important;
+    background-color: #5cb85c;
+  }
+  .optionBtn {
+    width: 25% !important;
+  } 
+  
+  .noRadius{
+    border-radius: 0px !important;
+  }
+
+  
+  
+  
+  
+  
+  

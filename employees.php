@@ -2,32 +2,127 @@
 	session_start();
 
 	//NOT LOGGED IN
-	if(!isset($_SESSION['auth'])) {
+	if(!isset($_SESSION["auth"])) {
 		header("location: login.php");
 		exit;
 	}
-	elseif (isset($_SESSION['auth']) and (!isset($_SESSION['currentEmployeePermissions']))
-		and !isset($_SESSION['firstLogin'])) {
+	elseif (isset($_SESSION["auth"]) and (!isset($_SESSION["currentEmployeePin"]))
+		and !isset($_SESSION["firstLogin"])) {
 		//LOGGED IN BUT NO PIN
 		header("location: pin.php");
 		exit;
 	}
-	/*elseif (isset($_SESSION['auth']) and isset($_SESSION['currentEmployeePermissions'])) {
-		//LOGGED IN AND PIN DETECTED, BUT NOT MANAGER
-		if ($_SESSION['currentEmployeePermissions'] == 2) {
-			header("location: home.php");
-			exit;
-		}
-	}*/
 
-	include_once 'db.php';
+	include_once "db.php";
 
 	$obj = new DBH;
 	$con = $obj->connect();
 
 	$status = "";
 
-	$src = 'pin.php';
+	$src = "pin.php";
+	
+	function attemptClockIn($pin, $bID) {
+		global $con;
+		$stmt = $con->prepare("SELECT clockedIn, lastClockIn FROM employees WHERE
+			ePass = :pin AND bID = :bID");
+		if ($stmt->execute(array(":pin" => $pin, ":bID" => $bID))) {
+			if($stmt->rowCount() > 0) {
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					if($row["clockedIn"] == 1) {
+						echo "You are already clocked-in. Last Clock-In: "
+							.$row["lastClockIn"]. "<br>";
+					}
+					elseif($row["clockedIn"] == 0) {
+						$stmt2 = $con->prepare("UPDATE employees SET clockedIn=1,
+							lastClockIn = :curTime WHERE ePass = :pin AND bID = :bID");
+						$curDt = new DateTime("now");
+						$curTime = $curDt->format("Y-m-d H:i:s");
+						if($stmt2->execute(array(":curTime" => $curTime,
+							":pin" => $pin, ":bID" => $bID))) {
+							echo "Successful Clock-In";
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	function attemptClockOut($pin, $bID) {
+		global $con;
+		$stmt = $con->prepare("SELECT eID, payRate, clockedIn, lastClockIn FROM
+			employees WHERE ePass = :pin AND bID = :bID");
+		if ($stmt->execute(array(":pin" => $pin, ":bID" => $bID))) {
+			if($stmt->rowCount() > 0) {
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					if($row["clockedIn"] == 1) {
+						$lastClockIn = DateTime::createFromFormat("Y-m-d H:i:s",
+							$row["lastClockIn"]);
+						$curDt = new DateTime("now");
+						$curTime = $curDt->format("Y-m-d H:i:s");
+						$timeInterval = $curDt->diff($lastClockIn);
+						$hours = $timeInterval->h;
+						$hours = $hours + ($timeInterval->days*24);
+						$minutes = $timeInterval->i;
+						$shift = $hours. ":" .$minutes;
+						// For quickly checking times used in function
+						/*echo $lastClockIn->format("Y-m-d H:i:s");
+						echo "<br>";
+						echo $curDt->format("Y-m-d H:i:s");
+						echo "<br>" .$shift. "<br>";*/
+						$stmt2 = $con->prepare("INSERT INTO hours (eID, payStart,
+							payEnd, payRate, hoursWorked, bID) VALUES (:eID, :payStart,
+							:payEnd, :payRate, :hoursWorked, :bID)");
+						if($stmt2->execute(array(":eID" => $row["eID"],
+							":payStart" => $row["lastClockIn"], ":payEnd" => $curTime,
+							":payRate" => $row["payRate"], ":hoursWorked" => $shift,
+							":bID" => $bID))) {
+							$stmt3 = $con->prepare("UPDATE employees SET
+								clockedIn=0, lastClockIn=NULL WHERE ePass=:pin
+								AND bID=:bID");
+							if ($stmt3->execute(array(":pin" => $pin,
+								":bID" => $bID))) {
+								echo "Successful Clock-Out";	
+							}
+						}
+					}
+					elseif($row["clockedIn"] == 0) {
+						echo "Clock-Out Failed. You must be clocked in before you
+							  can clock-out.";
+					}
+				}
+			}
+		}
+	}
+	
+	function employeeInfo($bID) {
+		global $con;
+		$stmt = $con->prepare("SELECT eID, fName, lName FROM employees WHERE bID = :bID");
+		if($stmt->execute(array(":bID" => $bID))) {
+			if($stmt->rowCount() > 0) {
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					echo "ID: " . $row["eID"]. " - Name: " . $row["fName"]. " " . $row["lName"]. "<br>";
+				}
+			} else {
+				echo "0 results";
+			}
+		}
+	}
+	
+	function personalInfo($pin, $bID) {
+		global $con;
+		$stmt = $con->prepare("SELECT eID, fName, lName FROM employees WHERE
+			ePass = :pin AND bID = :bID");
+		if ($stmt->execute(array(":pin" => $pin, ":bID" => $bID))) {
+			if($stmt->rowCount() > 0) {
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					echo "ID: " . $row["eID"]. " - Name: " . $row["fName"]. " " . $row["lName"]. "<br>";
+				}
+			} else {
+				echo "0 results";
+			}
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -71,12 +166,34 @@
 		</div>
 
 		<div class="form">
-			<input id="idBtnClock" type="submit" value="Clock-In">
-			<input type="submit" value="Clock-Out"> 
-			<input type="submit" value="Personal Employee Info">
-			<input id="idBtnViewEmployees" type="submit" value="View Employees">
+			<form method="post" action="employees.php">
+				<input id="idBtnClock" name="action" type="submit" value="Clock-In">
+			</form>
+			<form method="post" action="employees.php">
+				<input type="submit" name="action" value="Clock-Out"> 
+			</form>
+			<form method="post" action="employees.php">
+				<input type="submit" name="action" value="Personal Employee Info">
+			</form>
+			<form method="post" action="employees.php">
+				<input id="idBtnViewEmployees" type="submit" name="action" value="View Employees">
+			</form>
 			<input id="idBtnManageEmployees" type="submit" value="Manage Employee Data">
 		</div>
+		<?php
+		if($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='Clock-In') {
+				attemptClockIn($_SESSION['currentEmployeePin'], $_SESSION['bid']);
+		}
+		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='Clock-Out') {
+				attemptClockOut($_SESSION['currentEmployeePin'], $_SESSION['bid']);
+		}
+		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='Personal Employee Info') {
+				personalInfo($_SESSION['currentEmployeePin'], $_SESSION['bid']);
+		}
+		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='View Employees') {
+			employeeInfo($_SESSION['bid']);
+		}
+		?>
 	</div>
 
 </body>

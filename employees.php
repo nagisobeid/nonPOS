@@ -46,6 +46,9 @@
 				}
 			}
 		}
+		else {
+			echo "Database Error: Could not execute query";
+		}
 	}
 	
 	function attemptClockOut($pin, $bID) {
@@ -71,12 +74,11 @@
 						echo $curDt->format("Y-m-d H:i:s");
 						echo "<br>" .$shift. "<br>";*/
 						$stmt2 = $con->prepare("INSERT INTO hours (eID, payStart,
-							payEnd, payRate, hoursWorked, bID) VALUES (:eID, :payStart,
-							:payEnd, :payRate, :hoursWorked, :bID)");
+							payEnd, payRate, hoursWorked) VALUES (:eID, :payStart,
+							:payEnd, :payRate, :hoursWorked)");
 						if($stmt2->execute(array(":eID" => $row["eID"],
 							":payStart" => $row["lastClockIn"], ":payEnd" => $curTime,
-							":payRate" => $row["payRate"], ":hoursWorked" => $shift,
-							":bID" => $bID))) {
+							":payRate" => $row["payRate"], ":hoursWorked" => $shift))) {
 							$stmt3 = $con->prepare("UPDATE employees SET
 								clockedIn=0, lastClockIn=NULL WHERE ePass=:pin
 								AND bID=:bID");
@@ -92,6 +94,12 @@
 					}
 				}
 			}
+			else {
+				echo "Error: No employee record found";
+			}
+		}
+		else {
+			echo "Database Error: Could not execute query";
 		}
 	}
 	
@@ -178,7 +186,7 @@
 			<form method="post" action="employees.php">
 				<input id="idBtnViewEmployees" type="submit" name="action" value="View Employees">
 			</form>
-			<input id="idBtnManageEmployees" type="submit" value="Manage Employee Data">
+			<input id="idBtnManageEmployees" onclick="document.location='manageEmployees.php'" type="submit" value="Manage Employee Data">
 		</div>
 		<?php
 		if($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='Clock-In') {

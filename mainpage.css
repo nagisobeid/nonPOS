@@ -1,0 +1,25 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0px;
+    padding : 0px;
+}
+
+button {
+    color: darkgray;
+}
+
+#w3-top {
+    width: 100%;
+    height: 55px;
+    background-color: #24282e;
+}
+
+#logo {
+    position: fixed;
+    width: 125px;
+    left: 100px;
+}

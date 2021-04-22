@@ -1,5 +1,11 @@
 <?php
-
+    session_start();
+    if (!isset($_SESSION['auth']))
+    {
+        header("location: login.php");
+        exit;
+    }
+    $src = pin.php;
 ?>
 
 <!DOCTYPE html>
@@ -31,11 +37,14 @@
         <body>
             <section>
                 <article>
-                    <h3>Why nonPOS</h3>
-                    <p> Most POS systems are difficult to read and users likely be overwhelmed by quality of life and readability. To build and design a POS system will be beneficial to wide array of services especially during quick service and drive-thru food industry. </p>
+                    <h3>Why non Point Of Sales?</h3>
+                    <p>nonPOS was established to give small businesses for taking orders<br>
+                       and make transactions. This system will make small business lives<br>
+                       moving much quicker.</p><br>
 
-                    <h3>Information</h3>
-                    <p>The purpose of a nonPOS is to make the system reliable and readable for users. The manager using the system to manage employee hours rather than using time sheets and to keep track of a number employee users. Employees can take orders from customers to add and remove items from the list. When the items are in queue, the employee calculates the items for the price total. The employee takes the total payment by card and complete a transaction. </p>
+                    <h3>Have your small business succeed</h3>
+                    <p>You can easily run your business<br>
+                       for your team and your customers</p>
                 </article>
             </section>
         </body>

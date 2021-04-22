@@ -95,7 +95,7 @@
             <img id="logo" src="./images/logo2.png"></img>
             <button onclick="document.location='home.php'" type="button" id="idBtnHome"
                 class="btn btn-link">Home</button>
-            <button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
+            <button onclick="document.location='about.php'" type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
         </div>
     </header>
     <div class="btn-group" role="group" aria-label="Basic example" id="salesOptions">

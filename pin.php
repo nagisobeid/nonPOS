@@ -18,6 +18,7 @@
 	$_SESSION['currentEmployeePermissions'] = null;
    
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
+		$_SESSION['currentEmployeePin'] = $_POST['namePin'];
 		$pin = $_POST['namePin']; 
 		$bID = $_SESSION['bid'];
 		$sql = "SELECT * FROM employees WHERE ePass = '$pin' AND bID = '$bID'";
@@ -30,14 +31,15 @@
 			#$status = $employee['fName'];
 			#header("location: home.php");
 			$_SESSION['currentEmployeePin'] = $pin;
-			$_SESSION['currentEmployeePermissions'] = $employee['permissions'];
+			$_SESSION['currentEmployeePermissions'] = $employee['permisions'];
+			$_SESSION['currentEmployee'] = $employee['eID'];
 			header("location: home.php");
 		}
 		else {
 			$status = "Invalid Pin";
 		}
 	}
-?>
+?> 
 
 
 <!DOCTYPE html>

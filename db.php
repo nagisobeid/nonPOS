@@ -8,8 +8,8 @@ class DBH {
 
     public function connect() {
         $this->servername = "localhost";
-        $this->username = "root";
-        $this->password = "";
+        $this->username = "nonpos";
+        $this->password = "Gug3cactu";
         $this->dbname = "nonpos";
         $this->charset = "utf8mb4";
 

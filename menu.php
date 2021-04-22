@@ -8,6 +8,16 @@
     include_once 'db.php';
 	$obj = new DBH;
     $con = $obj->connect();
+    //LOADING ITEMS//
+    function loadMenuItems($dbConn) {
+        $bID = $_SESSION['bid'];
+        $sqlLoadItems = "SELECT * FROM items INNER JOIN menus ON items.menuID = menus.menuID WHERE menus.bID = $bID";
+        $res = $dbConn->prepare($sqlLoadItems);
+        $res->execute();
+        $menuItems = $res->fetchAll();
+        return $menuItems;
+    }
+    //END LOADING ITEMS//
 
     function loadCategories($dbConn) {
         $bID = $_SESSION['bid'];
@@ -21,6 +31,7 @@
     
     function addCategory($dbConn) {
         $categoryName = $_POST['nameCategoryName'];
+        $categoryName = str_replace(' ', '-', $categoryName);
         $categoryDesc = $_POST['nameCateogryDesc'];
         $bID = $_SESSION['bid'];
         $sql = "INSERT INTO menus (mName, bID, mDescrip)
@@ -78,10 +89,14 @@
         $stmt->bindParam(':menuID', $menuId[0],PDO::PARAM_INT);
         $stmt->execute();
         $last_item_id = $dbConn->lastInsertId();
-        addModifiers($last_item_id,$dbConn,$itemModifiers,$itemModifiersDesc,$itemModifiersPrice);
+        
+        if (!empty($itemModifiers)) {
+            addModifiers($last_item_id,$dbConn,$itemModifiers,$itemModifiersDesc,$itemModifiersPrice);
+        }
+        
     }
 
-
+    $menuItems = loadMenuItems($con);
     $categories = loadCategories($con);
  
     if(isset($_POST['submit'])) {
@@ -112,42 +127,63 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="text/JavaScript">
-      var currCountOfModifierFields = 1;
+        function deleteMenuItem(itemID) {
+            $.ajax({
+                url: 'deleteItem.php?q=' + itemID,
+                data: itemID,
+                type: 'POST',
+                dataType: 'json',
+                success: function(response)
+                {
+                    //modsIntoModals(response, itemID);
+                }
+            });
+        }
+
+        var currCountOfModifierFields = 0;
     	$(document).ready(function() {
             var categories = <?php echo json_encode($categories); ?>;
+            var menuItems = <?php echo json_encode($menuItems); ?>;
+
             for (i = 0; i < categories.length; i++) {
                 var categoryHtml = '<option>'+categories[i][0]+'</option>'
                 $('#selectedCategory').append(categoryHtml);
             }
+            for (i = 0; i < menuItems.length; i++) {
+                var itemHtml = '<tr id="trIdRemoveItem'+menuItems[i]['itemID']+'"><td id="tdIdRemoveItem'+menuItems[i]['itemID']+'" class="noPadding"><button id="btnIdRemoveItem'+menuItems[i]['itemID']+'" style="width: 100% !important;" type="submit" class="btn btn-danger noRadius">'+menuItems[i]['name']+'</button></td></tr>';
+                $('#trIdRemoveItemHead').append(itemHtml);
+            }
+
 			$(document).on('click', '.nav-link', function() {
                 $(".nav-link").removeClass("selected");
                 $(".tab-pane").removeClass("show");
                 $(this).addClass("selected");
             });
             $(document).on('click', '#btnAddModifier', function() {
-                var mID = '#divModifier-1';
-                var x = $(mID).clone();
                 currCountOfModifierFields+=1;
-                x.removeAttr('id');
-                var newID = 'divModifier-'+currCountOfModifierFields.toString();
-                x.attr( "id", newID);
-                x.insertBefore("#divAddModifier");
-                //RE-ASSIGNING NAMES AND ID'S
-                
-                $("#divModifier-"+currCountOfModifierFields.toString()+" > div#divModifier-1-Name").attr('id',"divModifier-"+currCountOfModifierFields+"-Name");
-                $("#divModifier-"+currCountOfModifierFields.toString()+"-Name > input").val('');
-                $("#divModifier-"+currCountOfModifierFields.toString()+"-Name > input").attr('id',"inputModifier-"+currCountOfModifierFields+"");
-                $("#divModifier-"+currCountOfModifierFields.toString()+"-Name > input").attr('name','nameItemModifier['+currCountOfModifierFields+']');
-
-                $("#divModifier-"+currCountOfModifierFields.toString()+" > div#divModifier-1-Price").attr('id',"divModifier-"+currCountOfModifierFields+"-Price");
-                $("#divModifier-"+currCountOfModifierFields.toString()+"-Price > input").val('');
-                $("#divModifier-"+currCountOfModifierFields.toString()+"-Price > input").attr('id',"inputModifierPrice-"+currCountOfModifierFields+"");
-                $("#divModifier-"+currCountOfModifierFields.toString()+"-Price > input").attr('name','nameItemModifierPrice['+currCountOfModifierFields+']');
-
-                $("#divModifier-"+currCountOfModifierFields.toString()+" > div#divModifier-1-Desc").attr('id',"divModifier-"+currCountOfModifierFields+"-Desc");
-                $("#divModifier-"+currCountOfModifierFields.toString()+"-Desc > input").val('');
-                $("#divModifier-"+currCountOfModifierFields.toString()+"-Desc > input").attr('id',"inputModifierDesc-"+currCountOfModifierFields+"");
-                $("#divModifier-"+currCountOfModifierFields.toString()+"-Desc > input").attr('name','nameItemModifierDesc['+currCountOfModifierFields+']');
+                //TEST
+                var divMod = '<div id="divModifier-'+currCountOfModifierFields+'" class="form-group col-md-12 col-sm-12">\
+                                <div id="divModifier-'+currCountOfModifierFields+'-Name" class="form-group col-md-4 col-sm-12 modifierPadding">\
+                                <label for="inputPrice">Modifier Name</label>\
+                                <input name="nameItemModifier['+currCountOfModifierFields+']" id="inputModifier-'+currCountOfModifierFields+'" type="text" class="form-control x" placeholder="Modifier" required>\
+                                </div>\
+                                <div id="divModifier-'+currCountOfModifierFields+'-Price" class="form-group col-md-4 col-sm-12 modifierPadding">\
+                                <label for="inputPrice">Price</label>\
+                                <input name="nameItemModifierPrice['+currCountOfModifierFields+']" id="inputModifierPrice-'+currCountOfModifierFields+'" type="text" class="form-control x" placeholder="$0.00" required>\
+                                </div>\
+                                <div id="divModifier-'+currCountOfModifierFields+'-Desc" class="form-group col-md-4 col-sm-12 modifierPadding">\
+                                <label for="inputPrice">Description</label>\
+                                <input name="nameItemModifierDesc['+currCountOfModifierFields+']" id="inputModifierDesc-'+currCountOfModifierFields+'" type="text" class="form-control x" placeholder="Description">\
+                                </div>\
+                            </div>';
+                $(divMod).insertBefore("#divAddModifier")
+                //END TEST
+            });
+            $(document).on('click', '#btnRemoveModifier', function() {
+                if(currCountOfModifierFields > 0) {
+                    $('#divModifier-'+currCountOfModifierFields+'').remove();
+                    currCountOfModifierFields-=1;
+                }
             });
     	}); //end
 	</script>
@@ -227,64 +263,18 @@
                         </div>
                         <hr>
                         <div id="divModifiers" class="form-row align-items-end">
-                            <div id="divModifier-1" class="form-group col-md-12 col-sm-12">
-                                <div id="divModifier-1-Name" class="form-group col-md-4 col-sm-12 modifierPadding">
-                                <label for="inputPrice">Modifier Name</label>
-                                <input name="nameItemModifier[1]" id="inputModifier-1" type="text" class="form-control x" placeholder="Modifier" required>
-                                </div>
-                                <div id="divModifier-1-Price" class="form-group col-md-4 col-sm-12 modifierPadding">
-                                <label for="inputPrice">Price</label>
-                                <input name="nameItemModifierPrice[1]" id="inputModifierPrice-1" type="text" class="form-control x" placeholder="$0.00" required>
-                                </div>
-                                <div id="divModifier-1-Desc" class="form-group col-md-4 col-sm-12 modifierPadding">
-                                <label for="inputPrice">Description</label>
-                                <input name="nameItemModifierDesc[1]" id="inputModifierDesc-1" type="text" class="form-control x" placeholder="Description">
-                                </div>
-                            </div>
-                            <!--<div id="divModifier-2" class="form-group col-md-12 col-sm-12">
-                                <div id="divModifier-2-Name" class="form-group col-md-4 col-sm-12 modifierPadding">
-                                <label for="inputPrice">Modifier Name</label>
-                                <input name="nameItemModifier[2]" id="inputModifier-2" type="text" class="form-control x" placeholder="Modifier" required>
-                                </div>
-                                <div id="divModifier-2-Price" class="form-group col-md-4 col-sm-12 modifierPadding">
-                                <label for="inputPrice">Price</label>
-                                <input name="nameItemModifierPrice[2]" id="inputModifierPrice-2" type="text" class="form-control x" placeholder="$0.00" required>
-                                </div>
-                                <div id="divModifier-2-Desc" class="form-group col-md-4 col-sm-12 modifierPadding">
-                                <label for="inputPrice">Description</label>
-                                <input name="nameItemModifierDesc[2]" id="inputModifierDesc-2" type="text" class="form-control x" placeholder="Description">
-                                </div>
-                            </div>
-                            <div id="divModifier-3" class="form-group col-md-12 col-sm-12">
-                                <div id="divModifier-3-Name" class="form-group col-md-4 col-sm-12 modifierPadding">
-                                <label for="inputPrice">Modifier Name</label>
-                                <input name="nameItemModifier[3]" id="inputModifier-3" type="text" class="form-control x" placeholder="Modifier" required>
-                                </div>
-                                <div id="divModifier-3-Price" class="form-group col-md-4 col-sm-12 modifierPadding">
-                                <label for="inputPrice">Price</label>
-                                <input name="nameItemModifierPrice[3]" id="inputModifierPrice-3" type="text" class="form-control x" placeholder="$0.00" required>
-                                </div>
-                                <div id="divModifier-3-Desc" class="form-group col-md-4 col-sm-12 modifierPadding">
-                                <label for="inputPrice">Description</label>
-                                <input name="nameItemModifierDesc[3]" id="inputModifierDesc-3" type="text" class="form-control x" placeholder="Description">
-                                </div>
-                            </div>-->
-                            <!--
-                            <div id="divModifier-2" class="form-group col-md-3 col-sm-3">
-                                <label for="inputZip">Modifier</label>
-                                <input name="nameItemModifier[2]" id="inputModifier-2" type="text" class="form-control x">
-                            </div>
-                            <div id="divModifier-3" class="form-group col-md-3 col-sm-3">
-                                <label for="inputZip">Modifier</label>
-                                <input name="nameItemModifier[3]" id="inputModifier-3" type="text" class="form-control x">
-                            </div>
-                            -->
+                        <!-- MODS DIVS GO HERE -->
+                            
                             <div id="divAddModifier" class="form-group">
                                 <button id="btnAddModifier" type="button" class="btn btn-success btn-sm"
-                                    style="height: 34px; margin-left: 5px;">+</button>
+                                    style="height: 34px; width: 82.01px; margin-left: 5px;">+ Modifier</button>
+                            </div>
+                            <div id="divRemoveModifier" class="form-group">
+                                <button id="btnRemoveModifier" type="button" class="btn btn-danger btn-sm"
+                                    style="height: 34px; width: 82.01px; margin-left: 5px;">- Modifier</button>
                             </div>
                         </div>
-                        <input name="submit" type="submit" value="Add Item" class="btn btn-primary">
+                        <input style="margin-bottom: 10px;" name="submit" type="submit" value="Add Item" class="btn btn-primary">
                         <!--<button type="submit" class="btn btn-primary" style="margin-bottom: 5px;">Add Item</button>-->
                     </form>
                 </div>
@@ -298,13 +288,8 @@
                                 <input type="text" class="form-control" id="idSearchItem" placeholder="Item">
                             </div>
                             <div class="form-group col-md-6">
-                            <table class="table table-hover table-striped firstRow">
-                                    <tr COLSPAN=2 BGCOLOR="#6D8FFF">
-                                        <tr><td class="noPadding"><button style="width: 100%;" type="submit" class="btn btn-danger noRadius">Super Burger</button></td></tr>
-                                        <tr><td class="noPadding"><button style="width: 100%;" type="submit" class="btn btn-danger noRadius">Chicken Sandwich</button></td></tr>
-                                        <tr><td class="noPadding"><button style="width: 100%;" type="submit" class="btn btn-danger noRadius">Pastrami Burger</button></td></tr>
-                                        <tr><td class="noPadding"><button style="width: 100%;" type="submit" class="btn btn-danger noRadius">Hot Dog</button></td></tr>
-                                    </tr>
+                                <table id="trIdRemoveItemHead" class="table table-hover table-striped firstRow">
+                                    
                                 </table>
                             </div>
                         </div>
@@ -321,11 +306,8 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <table class="table table-hover table-striped firstRow">
-                                    <tr COLSPAN=2 BGCOLOR="#6D8FFF">
-                                        <tr><td class="noPadding"><button style="width: 100%;" type="submit" class="btn btn-primary noRadius">Super Burger</button></td></tr>
-                                        <tr><td class="noPadding"><button style="width: 100%;" type="submit" class="btn btn-primary noRadius">Chicken Sandwich</button></td></tr>
-                                        <tr><td class="noPadding"><button style="width: 100%;" type="submit" class="btn btn-primary noRadius">Pastrami Burger</button></td></tr>
-                                        <tr><td class="noPadding"><button style="width: 100%;" type="submit" class="btn btn-primary noRadius">Hot Dog</button></td></tr>
+                                    <tr id="trIdEditItemHead" COLSPAN=2 BGCOLOR="#6D8FFF">
+                                        <tr id="trIdEditItem"><td id="tdIdEditItem" class="noPadding"><button style="width: 100%;" type="submit" class="btn btn-primary noRadius">Super Burger</button></td></tr>
                                     </tr>
                                 </table>
                             </div>

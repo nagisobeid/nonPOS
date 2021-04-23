@@ -43,7 +43,7 @@ html {
   }
   
   .selected {
-    background-color: #337ABC;
+    background-color: #337ABC !important;
     color: white !important;
     width: 100% !important;
   }

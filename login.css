@@ -5,8 +5,9 @@ body {
 	height: calc(100% - 55px);
 	margin: 0px;
 	padding: 0px;
-	background: rgb(129,123,126);
-	background: radial-gradient(circle, rgba(129,123,126,1) 0%, rgba(78,80,83,1) 100%);
+	/*background: rgb(129,123,126);
+	background: radial-gradient(circle, rgba(129,123,126,1) 0%, rgba(78,80,83,1) 100%);*/
+  background-color: white;
 }
 #main-bar {
 	width: 100%;
@@ -76,9 +77,10 @@ input[type=submit]:hover {
   /*grid-row-end: 3;
 }*/
 .form {
-  box-shadow: 5px 10px; height: 70%;
+  /*box-shadow: 5px 10px; height: 70%;*/
   border-radius: 5px;
-  background-color: #f2f2f2;
+  /*background-color: #f2f2f2;*/
+  background-color: white;
   /*margin: 0 20%;*/
   text-align: center;
   grid-column-start: 3;
@@ -95,12 +97,12 @@ input[type=submit]:hover {
   text-align: center;
 }
 .description {
-  color: white;
+  color: rgb(44, 118, 153);
   padding-top: 40px;
 }
 #divPhpMessage {
   font-family: Arial, Helvetica, sans-serif;
-  color:white;
+  color:rgb(197, 0, 0);
   grid-column-start: 1;
   grid-column-end: 7;
   grid-row-start: 3;

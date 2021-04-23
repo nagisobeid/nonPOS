@@ -5,8 +5,9 @@ body {
 	height: calc(100% - 55px);
 	margin: 0px;
 	padding: 0px;
-	background: rgb(129,123,126);
-	background: radial-gradient(circle, rgba(129,123,126,1) 0%, rgba(78,80,83,1) 100%);
+	/*background: rgb(129,123,126);
+	background: radial-gradient(circle, rgba(129,123,126,1) 0%, rgba(78,80,83,1) 100%);*/
+	background-color: white;
 }
 #main-bar {
 	width: 100%;
@@ -23,20 +24,27 @@ body {
 	right: 20px;
 	color: white;
 }
+/*
 .mainContainer {
 	display: grid;
   	height: 100%;
 	grid-template-columns: repeat(25, 1fr);
   	grid-template-rows: repeat(15, 1fr);
+}*/
+.mainContainer {
+	padding-top: 100px;
+	width: 100%;
+	text-align: center;
 }
 
 #mid-section {
+	text-align: center !important;
 	grid-column-start: 1;
 	grid-column-end: 26;
     grid-row-start: 2;
     grid-row-end: 14;
 }
-/*
+
 #bottom-section {
 	position: fixed;
   	bottom: 0;
@@ -46,7 +54,7 @@ body {
     grid-row-end: 16;
 	text-align: center;
 	background-color: white;
-}*/
+}
 
 .btn-div {
 	display: flex;
@@ -55,7 +63,9 @@ body {
 }
 
 .btnPos {
+	height: 40px;
   	width: 30%;
+	margin-bottom: 20px;
   }
 
 
@@ -75,7 +85,7 @@ min = min or >
 }
 @media screen and (max-width: 600px) {
   .btnPos {
-  	width: 100%;
+  	width: 90%;
   	margin-top: 10px;
   }
   #message {

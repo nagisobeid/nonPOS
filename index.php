@@ -25,9 +25,9 @@
     </header>
     <div class="mainContainer">
 
-        <div id="mid-section" style="padding-bottom: 0px;">
-            <!-- jumbotron -->
-
+        <div id="mid-section" style="padding-bottom: 0px; text-align: center;">
+            <img id="devices" style="width: 65%;" src="./images/all.png"></img>
+        <!--
             <div id="jumb" class="jumbotron" style="box-shadow: 5px 10px; height: 360px; overflow:auto;">
                 <h1 class="display-4">Hello</h1>
                 <p class="lead">Welcome to nonPOS</p>
@@ -42,8 +42,18 @@
                 </p>
             </div>
 
-            <!-- jumbotron -->
+            jumbotron -->
         </div>
+
+        <div id="bottom" style="margin-top: 10px;">
+        <div>
+            <button onclick="document.location='login.php'" id="btnLogin" type="button"
+                class="btn btn-primary btnPos">Login</button>
+            <button onclick="document.location='createaccount.php'" id="btnCreate_Account" type="button"
+                class="btn btn-primary btnPos">Create Account</button>
+        </div>
+	    </div>
+        
 
 </body>
 <!--<div id="bottom-section">

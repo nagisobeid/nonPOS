@@ -67,7 +67,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body> 
     <header>
         <div id="main-bar">
             <img id="logo" src="./images/logo2.png"></img>

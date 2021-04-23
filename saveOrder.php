@@ -79,7 +79,9 @@
         $sql = "INSERT INTO orders (username, placed, eID, type, bID)
         VALUES (:username, :placed, :eID, :type, :bID)";
         $stmt = $con->prepare($sql);
-        $stmt->execute(['username' => $decodedOrder['username'], 'placed' => $decodedOrder['placed'],
+        //$decodedOrder['placed']
+        $dt = date('Y-m-d H:i:s');
+        $stmt->execute(['username' => $decodedOrder['username'], 'placed' => $dt,
                         'eID' => $_SESSION['currentEmployee'], 'type' => $type, 'bID'=> $bID ]);
 
         $largestID = $largestID[0] + 1;

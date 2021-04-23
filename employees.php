@@ -40,7 +40,7 @@
 						$curTime = $curDt->format("Y-m-d H:i:s");
 						if($stmt2->execute(array(":curTime" => $curTime,
 							":pin" => $pin, ":bID" => $bID))) {
-							echo "Successful Clock-In";
+							echo "Successful Clock-In. Clock-In Time is: " .$curTime; #Temp Mark
 						}
 					}
 				}
@@ -84,7 +84,11 @@
 								AND bID=:bID");
 							if ($stmt3->execute(array(":pin" => $pin,
 								":bID" => $bID))) {
-								echo "Successful Clock-Out";	
+								#Temp Mark
+								echo "Successful Clock-Out. Shift was: <br>
+									Start Time: " .$row["lastClockIn"]. "<br>
+									  End Time: " .$curTime. "<br>Hours Worked: "
+									  .$shift;
 							}
 						}
 					}
@@ -105,11 +109,21 @@
 	
 	function employeeInfo($bID) {
 		global $con;
-		$stmt = $con->prepare("SELECT eID, fName, lName FROM employees WHERE bID = :bID");
+		$stmt = $con->prepare("SELECT eID, fName, lName, dob, address, city, state, zip, phone, permisions, payRate FROM employees WHERE bID = :bID");
 		if($stmt->execute(array(":bID" => $bID))) {
 			if($stmt->rowCount() > 0) {
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-					echo "ID: " . $row["eID"]. " - Name: " . $row["fName"]. " " . $row["lName"]. "<br>";
+					echo "ID: " .$row["eID"]. " -- Name: " . $row["fName"]. " "
+						.$row["lName"]. " -- DOB: " .$row["dob"]. " -- Address: " .$row["address"]. " "
+						.$row["city"]. " " .$row["state"]. " " .$row["zip"]. " -- Phone #:  "
+						.$row["phone"];
+					if($row["permisions"] == 1) {
+						echo " -- Manager";
+					}
+					else {
+						echo " -- Employee";
+					}
+					echo " -- Pay Rate: " .$row["payRate"]. "<br><br>";
 				}
 			} else {
 				echo "0 results";
@@ -119,12 +133,22 @@
 	
 	function personalInfo($pin, $bID) {
 		global $con;
-		$stmt = $con->prepare("SELECT eID, fName, lName FROM employees WHERE
+		$stmt = $con->prepare("SELECT eID, fName, lName, dob, address, city, state, zip, phone, permisions, payRate FROM employees WHERE
 			ePass = :pin AND bID = :bID");
 		if ($stmt->execute(array(":pin" => $pin, ":bID" => $bID))) {
 			if($stmt->rowCount() > 0) {
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-					echo "ID: " . $row["eID"]. " - Name: " . $row["fName"]. " " . $row["lName"]. "<br>";
+					echo "ID: " .$row["eID"]. " -- Name: " . $row["fName"]. " "
+						.$row["lName"]. " -- DOB: " .$row["dob"]. " -- Address: " .$row["address"]. " "
+						.$row["city"]. " " .$row["state"]. " " .$row["zip"]. " -- Phone #:  "
+						.$row["phone"];
+					if($row["permisions"] == 1) {
+						echo " -- Manager";
+					}
+					else {
+						echo " -- Employee";
+					}
+					echo " -- Pay Rate: " .$row["payRate"]. "<br><br>";
 				}
 			} else {
 				echo "0 results";
@@ -152,6 +176,7 @@
 		var currentEmployeePermissions = '<?php echo $_SESSION['currentEmployeePermissions']; ?>';
 		if (currentEmployeePermissions == 2) {
 			$("#idBtnViewEmployees").hide();
+			$("#idBtnCreateEmployees").hide();
 			$("#idBtnManageEmployees").hide();
 			$(".form").css("height", "180px");
 		}
@@ -186,6 +211,7 @@
 			<form method="post" action="employees.php">
 				<input id="idBtnViewEmployees" type="submit" name="action" value="View Employees">
 			</form>
+			<input id="idBtnCreateEmployees" onclick="document.location='createemployee.php'" type="submit" value="Create New Employee">
 			<input id="idBtnManageEmployees" onclick="document.location='manageEmployees.php'" type="submit" value="Manage Employee Data">
 		</div>
 		<?php

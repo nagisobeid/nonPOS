@@ -18,10 +18,10 @@ body {
 	width: 125px;
 
 }
-#btn-about-us {
+#btn-Home {
 	position: absolute;
+	right: 100px;
 	top: 10px;
-	right: 20px;
 	color: white;
 }
 /*

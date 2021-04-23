@@ -65,7 +65,7 @@
     <header>
         <div id="main-bar">
             <img id="logo" src="./images/logo2.png"></img>
-            <button type="button" id="idBtnHome" class="btn btn-link">Home</button>
+            <button onclick="document.location='home.php'" type="button" id="idBtnHome" class="btn btn-link">Home</button>
             <button onclick="document.location='logout.php'" type="button" id="idBtnLogout" class="btn btn-link">Log
                 Out</button>
         </div>

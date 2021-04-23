@@ -20,7 +20,7 @@
     <header>
         <div id="main-bar">
             <img id="logo" src="./images/logo2.png"></img>
-            <button type="button" id="btn-about-us" class="btn btn-link">About Us</button>
+            <button onClick="document.location='mainpage.html'" type="button" id="btn-Home" class="btn btn-link">Home</button>
         </div>
     </header>
     <div class="mainContainer">

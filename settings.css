@@ -2,7 +2,7 @@ html {
 	height: 100%;
 }
 body {
-	height: 100%;
+	height: calc(100% - 55px);
 	margin: 0px;
 	padding: 0px;
 	background: rgb(129,123,126);
@@ -31,23 +31,13 @@ body {
   color: white;
 }
 
-/*--------------
-input[type=text],[type=Email], [type=Password], select {
-  width: 85%;
-  padding: 12px 20px;
-  margin: 1% 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}*/
 
 input[type=submit] {
-  width: 25%;
+  width: 85%;
   background-color: #337ABC;
   color: white;
-  padding: 4px 8px;
-  float: right;
+  padding: 12px 20px;
+  margin-top: 2px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -64,32 +54,37 @@ input[type=submit]:hover {
   grid-template-rows: repeat(6, 1fr);
 }
 .form {
+  display: hidden;
   box-shadow: 5px 10px; height: 70%;
   border-radius: 5px;
-  padding: 20px;
-  text-align: left;
   background-color: #f2f2f2;
+  text-align: center;
   grid-column-start: 3;
   grid-column-end: 5;
   grid-row-start: 2;
-  grid-row-end: 3;
+  
 }
 .formDescription {
+  text-align: center;
   grid-column-start: 1;
   grid-column-end: 7;
   grid-row-start: 1;
   grid-row-end: 2;
-  text-align: center;
+
 }
 .description {
   color: white;
-  padding-top: 50px;
+  padding-top: 40px;
 }
 
+#idBtnPosRegister {
+
+  margin-top: 25px;
+}
 
 @media screen and (max-height: 3000px) {
   .form {
-   height: 160px;
+   height: 186px;
    } 
  }
 
@@ -100,15 +95,17 @@ input[type=submit]:hover {
  }
 
 
- @media screen and (max-width: 774px) {
+ @media screen and (max-width: 992px) {
   .form {
     grid-column-start: 2;
     grid-column-end: 6;
   }
 }
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 576px) {
   .form {
     grid-column-start: 1;
     grid-column-end: 7;
+    margin-left: 40px;
+    margin-right: 40px;
   }
 }

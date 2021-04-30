@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS employees(
 	permisions integer NOT NULL,
 	payRate float NOT NULL,
 	bID integer NOT NULL,
+	clockedIn tinyint(1) NOT NULL,
+  	lastClockIn datetime DEFAULT NULL,
 	PRIMARY KEY(eID),
 	FOREIGN KEY (bID) REFERENCES owners(bID)
 );

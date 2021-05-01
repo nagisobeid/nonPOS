@@ -86,6 +86,16 @@ input[type=submit]:hover {
   padding-top: 50px;
 }
 
+#divPhpMessage {
+	font-family: Arial, Helvetica, sans-serif;
+	color: white;
+	grid-column-start: 1;
+	grid-column-end: 7;
+	grid-row-start: 3;
+	grid-row-end: 4;
+	text-align: center;
+}
+
 @media screen and (max-height: 3000px) {
   .form {
    height: 130px;

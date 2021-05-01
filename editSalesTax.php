@@ -3,21 +3,17 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    session_start();	
-	if (isset($_SESSION['auth']))		
-	{						
-		header("location: home.php");	
-    	exit;	
-    }	
-
+    session_start();
+    if (!isset($_SESSION['auth']))
+    {
+        header("location: login.php");
+        exit;
+    }
     include_once 'db.php';
-    
     $obj = new DBH;
     $con = $obj->connect();
-
-    $status = "";
-    $bID = $_SESSION['bID'];
-        
+    $bID = $_SESSION['bid'];
+    $status = "";    
     if(($_SERVER['REQUEST_METHOD'] == 'POST')) {
         $new = $_POST['newsalesTax'];
         
@@ -34,7 +30,7 @@
             $sql = "UPDATE owners set tax = '$new' WHERE bID = '$bID'";
             $res = $con->prepare($sql);
             $res->execute();
-
+            $status = "Tax Sales Updated";
         }
     }
 ?>
@@ -55,13 +51,14 @@
 </head>
 <body>
 <header>
-	<div id="main-bar">
-		<img id="logo" src="./images/logo2.png"></img>
-		<button type="button" id="idBtnHome" class="btn btn-link">Home</button>
-		<button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
-	</div>
+    <div id="main-bar">
+         <img id="logo" src="./images/logo2.png"></img>
+         <button onclick="document.location='home.php'" type="button" id="idBtnHome"
+            class="btn btn-link">Home</button>
+         <but   ton type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
+    </div>
 </header>
-	
+	    
 	<div class="container">
 		<div class="formDescription">
 			<h1 class="description">Change Sales Tax</h1>
@@ -71,7 +68,9 @@
             
 	  		<input type="submit" value="Save Changes">
 		</form>
-
+        <div id="divPhpMessage">
+            <h4 name="h1PHPMessage" id="h1PHPMessage" class="phpDescription"><?php echo $status ?></h4>
+		</div>
 	</div>
 		
 </body>

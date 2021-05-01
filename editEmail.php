@@ -3,20 +3,17 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    session_start();	
-	if (isset($_SESSION['auth']))		
-	{						
-		header("location: home.php");	
-    	exit;	
-    }	
-
+    session_start();
+    if (!isset($_SESSION['auth']))
+    {
+        header("location: login.php");
+        exit;
+    }
     include_once 'db.php';
-    
     $obj = new DBH;
     $con = $obj->connect();
-
+    $bID = $_SESSION['bid'];
     $status = "";
-    $bID = $_SESSION['bID'];
         
     if(($_SERVER['REQUEST_METHOD'] == 'POST')) {
         $new = $_POST['newEmail'];
@@ -37,6 +34,7 @@
                 $sql = "UPDATE owners set email = '$new' WHERE bID = '$bID'";
                 $res = $con->prepare($sql);
                 $res->execute();
+                $status = "Email Updated";
             }
         }
     }
@@ -58,13 +56,14 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<header>
-	<div id="main-bar">
-		<img id="logo" src="./images/logo2.png"></img>
-		<button type="button" id="idBtnHome" class="btn btn-link">Home</button>
-		<button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
-	</div>
-</header>
+    <header>
+        <div id="main-bar">
+            <img id="logo" src="./images/logo2.png"></img>
+            <button onclick="document.location='home.php'" type="button" id="idBtnHome"
+                class="btn btn-link">Home</button>
+            <button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
+        </div>
+    </header>
 	
 	<div class="container">
 		<div class="formDescription">
@@ -74,7 +73,9 @@
 	    	<input type="email" id="idnewEmail" name="newEmail" placeholder="New Email">
 	  		<input type="submit" value="Save Changes">
 		</form>
-
+        <div id="divPhpMessage">
+            <h4 name="h1PHPMessage" id="h1PHPMessage" class="phpDescription"><?php echo $status ?></h4>
+		</div>
 	</div>
 		
 </body>

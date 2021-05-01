@@ -16,11 +16,12 @@
 </head>
 <body>
 <header>
-	<div id="main-bar">
-		<img id="logo" src="./images/logo2.png"></img>
-		<button type="button" id="idBtnHome" class="btn btn-link">Home</button>
-		<button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
-	</div>
+        <div id="main-bar">
+            <img id="logo" src="./images/logo2.png"></img>
+            <button onclick="document.location='index.php'" type="button" id="idBtnHome"
+                class="btn btn-link">Home</button>
+            <button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
+        </div>
 </header>
 	
 	<div class="container">

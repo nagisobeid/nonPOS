@@ -32,19 +32,33 @@
         </header>
 <div class="mainContainer">
     <div id="mid-section" style="padding-bottom: 0px;">
-
-    <div id="jumb" class="jumbotron" style="box-shadow: 5px 10px; height: 360px; overflow:auto;">
         <body>
             <section>
                 <article>
-                    <h3>Why non Point Of Sales?</h3>
-                    <p>nonPOS was established to give small businesses for taking orders<br>
-                       and make transactions. This system will make small business lives<br>
-                       moving much quicker.</p><br>
+                    <div class="w3-content" style="max-width:1000px">
+                        <div class"w3-col m6 w3-padding-large">
+                            <h3 class="w3-center">Why non Point Of Sales?</h3><br>
+                            <h5 class="w3-large">nonPOS was established to give small businesses for taking orders and make transactions. This system will make small business lives moving much quicker.</h5><br>
+                        </div>
+                    </div>
+                    <br><br><br><br><br><br>
+                        <div class="w3-col m6 w3-padding-large w3-hide-small">
+                            <img src="./images/nonposabout.png" alt="aboutpos" width="940" height="600">
+                        </div>
+                    <br><br><br><br><br><br>
 
                     <h3>Have your small business succeed</h3>
                     <p>You can easily run your business<br>
-                       for your team and your customers</p>
+                       for your team and your customers</p><br><br><br>
+
+                    <br><br><br><br><br><br>
+                    <div class"w3-container w3-padding-64 w3-dark-gray" id="contact">
+                        <h1>Contact</h1><br>
+                        <p>Find out more if nonPOS is right for your business</p>
+                        <p class="w3-text-white w3-large"><b>nonPOS inc, 63rd None St, 93336 California, CA</b></p>
+                        <p>Please do give us a call at (611) 336-3636</p>
+                        <p>Or email nonPOS36@nonmail.com<p><br><br>
+                    </div>
                 </article>
             </section>
         </body>

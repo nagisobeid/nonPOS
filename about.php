@@ -55,9 +55,10 @@
                     <div class"w3-container w3-padding-64 w3-dark-gray" id="contact">
                         <h1>Contact</h1><br>
                         <p>Find out more if nonPOS is right for your business</p>
-                        <p class="w3-text-white w3-large"><b>nonPOS inc, 63rd None St, 93336 California, CA</b></p>
-                        <p>Please do give us a call at (611) 336-3636</p>
-                        <p>Or email nonPOS36@nonmail.com<p><br><br>
+                        <p class="w3-text-white w3-large"><b>Address: nonPOS inc, 63rd None St, 93336 California, CA</b></p>
+                        <p>Phone: (611) 336-3636</p>
+                        <p>Email: nonPOS36@nonmail.com<p>
+                        <p>Or fill out a <a href="contactform.html">Contact Form</a></p>
                     </div>
                 </article>
             </section>

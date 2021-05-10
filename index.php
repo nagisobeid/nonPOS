@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
     <title>nonPOS</title>
     <meta charset="utf-8">

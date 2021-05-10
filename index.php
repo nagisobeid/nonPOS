@@ -32,7 +32,7 @@ letter-spacing: 5px;
             </div>
         </div>
         
-        <div class="w3-row w3-padding-64" id="main">
+        <div class="w3-row w3-padding-64" id="main"> 
             <div class="w3-col m6 w3-padding-large w3-hide-small">
                 <img src="./images/nonposmain.jpg" class="w3-round w3-opacity-min" alt="deletepos" width="1550" height="750">
                 <h1 class="w3-xxlarge w3-center">Welcome to nonPOS</h1><br>

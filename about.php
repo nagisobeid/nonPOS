@@ -33,7 +33,7 @@
 <div class="mainContainer">
     <div id="mid-section" style="padding-bottom: 0px;">
         <body>
-            <section>
+            <section> 
                 <article>
                     <div class="w3-content" style="max-width:1000px">
                         <div class"w3-col m6 w3-padding-large">

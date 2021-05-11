@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS orders(
 	oID integer NOT NULL AUTO_INCREMENT,
 	username varchar(25) NOT NULL,
-	placed date NOT NULL,
-	completed date NOT NULL,
-	dt boolean NOT NULL,
+	placed datetime NOT NULL,
+	completed datetime NOT NULL,
+	type integer NOT NULL,
 	eID integer NOT NULL,
 	bID integer NOT NULL
 	PRIMARY KEY (oID),

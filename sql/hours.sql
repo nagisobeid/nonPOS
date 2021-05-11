@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS hours(
 	payStart date NOT NULL,
 	payEnd date NOT NULL,
 	payRate float NOT NULL,
-	hoursWorked float,
+	hoursWorked time,
 	PRIMARY KEY(eID, payStart),
 	FOREIGN KEY(eID) REFERENCES employees(eID)
 );

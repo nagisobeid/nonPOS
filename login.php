@@ -86,6 +86,7 @@
             <input class="inputForm" type="text" id="idUsername" name="nameUsername" placeholder="Username" require>
 			<input class="inputForm" type="Password" id="idPassword" name="namePassword" placeholder="Password" require>
 			<input type="submit" value="Submit">
+			<input type="button" value="Reset Password" onclick="document.location='resetcont.php'">
         </form>
         <div id="divPhpMessage">
             <h4 name="h1PHPMessage" id="h1PHPMessage" class="phpDescription"><?php echo $status ?></h4>

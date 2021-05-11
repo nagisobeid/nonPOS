@@ -39,6 +39,126 @@
 				return false;
 	}
 	
+	// Makes sure that input is in proper format
+	function inputValidation($fields) {
+		global $con;
+		$error = False;
+		$states = $stateAbbreviations  = Array("AL","AK","CA","CT","DE","FL","GA",
+		                                       "HI","LA","ME","NH","NJ","NY","NC",
+											   "OR","MD","MA","MS","RI","SC","TX",
+											   "VA","WA");
+		//Check that eID exists
+		if(!empty($fields[1])) {
+			$stmt = $con->prepare("SELECT * FROM employees WHERE eID = :eID");
+			if($stmt->execute(array(":eID" => $fields[1]))) {
+				if($stmt->rowCount() != 1) {
+					print("ERROR: The entered Employee ID (" .$fields[1]. ") does
+					       not exist in the database.<br>");
+					$error = True;
+				}
+			}
+		}
+		//Check that first name is not too long
+		if(!empty($fields[2])) {
+			if(strlen($fields[2]) > 25) {
+				print("ERROR: The entered First Name (" .$fields[2]. ") is invalid.
+				       Must be 25 characters or shorter.<br>");
+				$error = True;
+			}
+		}
+		//Check that last name is not too long
+		if(!empty($fields[3])) {
+			if(strlen($fields[3]) > 25) {
+				print("ERROR: The entered Last Name (" .$fields[3]. ") is invalid.
+				       Must be 25 characters or shorter.<br>");
+				$error = True;
+			}
+		}
+		//DOB doesn't need to be checked, constrained by entry box
+		//Check that empPIN is not too long and is numbers only
+		if(!empty($fields[5])) {
+			if(strlen($fields[5]) > 25) {
+				print("ERROR: The entered Employee PIN (" .$fields[5]. ") is
+				       invalid. Must be 25 characters or shorter.<br>");
+				$error = True;
+			}
+			if(!is_numeric($fields[5])) {
+				print("ERROR: The entered Employee PIN (" .$fields[5]. ") is
+				       invalid. Must consist only of numeric characters.<br> ");
+				$error = True;
+			}
+		}
+		//Check that address isn't too long
+		if(!empty($fields[6])) {
+			if(strlen($fields[6]) > 50) {
+				print("ERROR: The entered Address (" .$fields[6]. ") is invalid.
+				       Must be 50 characters or shorter.<br>");
+				$error = True;
+			}
+		}
+		//Check that city isn't too long
+		if(!empty($fields[7])) {
+			if(strlen($fields[7]) > 25) {
+				print("ERROR: The entered City (" .$fields[7]. ") is
+				       invalid. Must be 25 characters or shorter.<br>");
+				$error = True;
+			}
+		}
+		//Check that state is indeed a state
+		if(!empty($fields[8])) {
+			if(!in_array($fields[8],$states)) {
+				print("ERROR: The entered State (" .$fields[8]. ") is invalid.
+				       Must be a capitilized abbreviation (Ex. CA).<br>");
+				$error = True;
+			}
+		}
+		//Check that zipcode is valid
+		if(!empty($fields[9])) {
+			if(strlen($fields[9]) > 5) {
+				print("ERROR: The entered Zip Code (" .$fields[9]. ") is invalid.
+				       Must be 5 characters or shorter.<br>");
+				$error = True;
+			}
+			if(!is_numeric($fields[9])) {
+				print("ERROR: The entered Zip Code (" .$fields[5]. ") is invalid.
+				       Must consist only of numeric characters.<br> ");
+				$error = True;
+			}
+		}
+		//Check that phone number is valid
+		if(!empty($fields[10])) {
+			if(strlen($fields[10]) != 10) {
+				print("ERROR: The entered Phone Number (" .$fields[10]. ") is
+				       invalid. Must be 10 characters long (Format Ex. 1234567890).<br>");
+				$error = True;
+			}
+			if(!is_numeric($fields[10])) {
+				print("ERROR: The entered Phone Number (" .$fields[10]. ") is invalid.
+				       Must consist only of numeric characters.<br> ");
+				$error = True;
+			}
+		}
+		//Check that permission is 1 or 2
+		if(!empty($fields[11])) {
+			if($fields[11] != "1" && $fields[11] != "2") {
+				print("ERROR: The entered Permission (" .$fields[11]. ") is
+				       invalid. Must be 1 or 2.<br>");
+				$error = True;
+			}
+		}
+		//Check that pay rate is valid
+		if(!empty($fields[12])) {
+			$decimalCount = substr_count($fields[12], ".");
+			$pay = str_replace(".", "", $fields[12]);
+			if($decimalCount > 1 || !is_numeric($pay)) {
+				print("ERROR: The entered Pay Rate (" .$fields[12]. ") is
+				       invalid. Must be a valid float with 0 or 1 decimals.<br>");
+				$error = True;
+			}
+		}
+		return $error;
+	}
+	
 	function updateEmployee($fields) {
 		global $con;
 		$query = "UPDATE employees SET ";
@@ -208,7 +328,10 @@
 					$_POST["update-city"],$_POST["update-state"], $_POST["update-zip"],
 					$_POST["update-phone"], $_POST["update-perm"], $_POST["update-pay"]);
 				if(permissionDoubleCheck($_SESSION["currentEmployee"], $_POST["update-manPIN"], $_SESSION["bid"])) {
-					updateEmployee($fields);
+					$entryError = inputValidation($fields);
+					if($entryError == False) {
+						updateEmployee($fields);
+					}
 				}
 				else {
 					echo "Update Failed: Incorrect manager PIN";

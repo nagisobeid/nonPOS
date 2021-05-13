@@ -33,8 +33,8 @@ letter-spacing: 5px;
         </div>
         
         <div class="w3-row w3-padding-64" id="main"> 
-            <div class="w3-col m6 w3-padding-large w3-hide-small">
-                <img src="./images/nonposmain.jpg" class="w3-round w3-opacity-min" alt="deletepos" width="1550" height="750">
+            <div class="w3-col m12 w3-padding-large" style="text-align: center;">
+                <img src="./images/nonposmain.jpg" alt="deletepos" width="70%" height="auto" style="margin-top: 5px; !important">
                 <h1 class="w3-xxlarge w3-center">Welcome to nonPOS</h1><br>
                 <hr class="my-4">
                 <h5 class="w3-large">The best Point of Sale system for small businesses.</h5>
@@ -43,21 +43,21 @@ letter-spacing: 5px;
 
         <hr>
         <div class="w3-center">
-            <a href="about.php" class="w3-dark-gray w3-bar-item w3-button">About Us</a>
-            <a href="login.php" class="w3-dark-gray w3-bar-item w3-button">Login</a>
-            <a href="createaccount.php" class="w3-dark-gray w3-bar-item w3-button">Create an Account</a>
+            <a href="about.php" class="btn btn-success w3-bar-item" style="width: 25% !important">About Us</a>
+            <a href="login.php" class="btn btn-success  w3-bar-item" style="width: 25% !important" >Login</a>
+            <a href="createaccount.php" class="btn btn-success w3-bar-item" style="width: 25% !important" >Create an Account</a>
         </div>
         <hr>
         <br><br><br><br><br><br>
 
         <div class="w3-content" style:"max-width:1000px">
  
-            <div class="w3-col m6 w3-padding-large">
+            <div class="w3-col m12 w3-padding-large">
                 <h2 class="w3-center">Make your business life easier</h2><br>            
             </div>
        
-            <div class="w3-row w3-padding-64" id="main2">
-                <img src="./images/nonpos1.jpg" class="w3-round w3-image w3-opacity-min" alt="calcpos" width="700" height="1250">
+            <div class="w3-row w3-padding-64" id="main2" style="text-align: center;">
+                <img src="./images/nonpos1.jpg" class="w3-round w3-image" alt="calcpos" width="70%" height="auto">
             </div>
             
         </div>

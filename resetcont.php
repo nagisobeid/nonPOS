@@ -21,7 +21,6 @@ if(isset($_POST['email_in']) && $_POST['address'])
     $owner = $res->fetch();
         $token = bin2hex(random_bytes(25));
         $email = $owner['email'];
-        echo "$email";
         $user = $owner['username'];
         $sql = "UPDATE Owners SET token='$token' where email='$email'";
         $res = $con->prepare($sql);
@@ -43,7 +42,7 @@ if(isset($_POST['email_in']) && $_POST['address'])
         $mailer->Body = "Click this <a href=http://localhost/final/reset.php?token=" .$token."> link</a> to reset your password. ";
         if($mailer->Send())
         {
-            echo "Check your email and click the link to reset your password.";
+            echo "<script>alert('Check your email and click the link to reset your password.');</script>";
         }
         else
         {
@@ -55,11 +54,35 @@ if(isset($_POST['email_in']) && $_POST['address'])
 
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="resetcont.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
     <body>
-        <form method="POST" action="">
-            <p> Enter email address. A link will be sent to reset the password of the assosiated account. </p>
-            <input name="address" type="text">
-            <input name="email_in" type="submit">
-        </form>
+        <header>
+            <div id="main-bar">
+                <img id="logo" src="./images/logo2.png"></img>
+                <button onclick="document.location='index.php'" type="button" id="idBtnHome"
+                    class="btn btn-link">Home</button>
+                <button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
+            </div>
+        </header>
+        <div class="container">
+            <form method="POST" action="" class="form">
+                <p> Enter email address. A link will be sent to reset the password of the assosiated account. </p>
+                <input name="address" type="text" placeholder="address@email.com">
+                <input name="email_in" type="submit">
+            </form>
+        </div>
     </body>
 </html>

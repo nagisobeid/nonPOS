@@ -43,9 +43,9 @@ letter-spacing: 5px;
 
         <hr>
         <div class="w3-center">
-            <a href="about.php" class="btn btn-success w3-bar-item" style="width: 25% !important">About Us</a>
-            <a href="login.php" class="btn btn-success  w3-bar-item" style="width: 25% !important" >Login</a>
-            <a href="createaccount.php" class="btn btn-success w3-bar-item" style="width: 25% !important" >Create an Account</a>
+            <a href="about.php" class="btn btn-success w3-bar-item" style="width: 30% !important">About Us</a>
+            <a href="login.php" class="btn btn-success  w3-bar-item" style="width: 30% !important" >Login</a>
+            <a href="createaccount.php" class="btn btn-success w3-bar-item" style="width: 30% !important; padding-left: 0px !important;">Create Account</a>
         </div>
         <hr>
         <br><br><br><br><br><br>

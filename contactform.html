@@ -1,0 +1,146 @@
+<!DOCTYPE html> 
+<html>
+    <title>Contact Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="contactform.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+body {font-family: "Times New Roman", Georgia, Serif;}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display";
+letter-spacing: 5px;
+}
+    </style>
+    <body>
+        <div class="w3-top">
+            <div class="w3-bar w3-dark-gray w3-padding w3-card" style="letter-spacing:2px;">
+                <img src="./images/logo2.png" alt="POS" style="width:120px;height:55px;"></img>
+                <div class="w3-right w3-hide-small">
+                    <a href="about.php" class="w3-bar-item w3-button">About Us</a>
+                    <a href="login.php" class="w3-bar-item w3-button">Login</a>
+                    <a href="createaccount.php" class="w3-bar-item w3-button">Create an Account</a>
+                </div>
+            </div>
+        </div>
+        <br><br><br><br>
+        <h4>Please fill out the Form to contact you</h4>
+        <br><br>
+        <div class="container">
+            <form name="confrm" id="confrm" action="completeform.html" method="post">
+                <div class="form-group">
+                    <label for="fname">First Name</label><br>
+                    <input type="text" id="fname" name="firstname" placeholder="First Name" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="lname">Last Name</label><br>
+                    <input type="text" id="lname" name="lastname" placeholder="Last Name" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label><br>
+                    <input type="text" id="email" name="email" placeholder="Email" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label><br>
+                    <input type="text" id="address" name="address" placeholder="Address" required><br>
+                </div>
+                <div>
+                    <label for="phonenumber">Phone Number</label><br>
+                    <input type="text" id="phonenumber" name="phonenumber" placeholder="Phone Number" required><br>
+                </div>
+                
+                <label for="countryregion">Country</label><br>
+                <select id="country" name="country" required>
+                    <option value="select">Select</option>
+                    <option value="unitedkingdom">United Kingdom</option>
+                    <option value="unitedstates">United States</option>
+                    <option value="canada">Canada</option>
+                    <option value="brazil">Brazil</option>
+                    <option value="france">France</option>
+                    <option value="australia">Australia</option>
+                </select>
+                <br><br>
+
+                <div class="form-group">
+                    <label for="businessname">Business Name</label><br>
+                    <input type="text" id="businessname" name="businessname" placeholder="Business Name" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="information">How do you hear from us?</label><br>
+                    <textarea id="information" name="information" style="height:280px" placeholder="Optional"></textarea>
+                </div>
+                <br><br>
+               
+                <input type="reset" onclick="resetForm()" value="Reset">
+                <input type="submit" onclick="validateForm()" value="Submit">
+            </form>
+        </div>
+
+        <br><br><br><br>
+
+    <script>
+        function validateForm() {
+
+            var fname = document.forms["confrm"]["fname"];
+            var lname = document.forms["confrm"]["lname"];
+            var email = document.forms["confrm"]["email"];
+            var address = document.forms["confrm"]["address"];
+            var phonenumber = document.forms["confrm"]["phonenumber"];
+            var businessname = document.forms["confrm"]["businessname"];
+
+            if (fname.value == "" && lname.value == "" && email.value = "" && address.value == "" && phonenumber.value == "" && businessname.value == "" ) {
+                fname.style.border = "2px solid red";
+                lname.style.border = "2px solid red";
+                email.style.border = "2px solid red";
+                address.style.border = "2px solid red";
+                phonenumber.style.border = "2px solid red";
+                businessname.style.border = "2px solid red";
+                return false;
+            }
+            else if (fname.value == "") {
+                fname.style.border = "2px solid red";
+                return false;
+            }   
+            else if (lname.value == "") {
+                lname.style.border = "2px solid red";
+                return false;
+            }   
+            else if (email.value == "") {
+                email.style.border = "2px solid red";
+                return false;
+            }   
+            else if (address.value == "") {
+                address.style.border = "2px solid red";
+                return false;
+            }   
+            else if (phonenumber.value == "") {
+                phonenumber.style.border = "2px solid red";
+                return false;
+            }   
+            else if (businessname.value == "") {
+                businessname.style.border = "2px solid red";
+                return false;
+            }   
+        
+            if (valid) {
+                document.getElementById("confrm").innerHTML = "Thank you for you submission we will contact you shortly.";
+
+            } else {
+                alert("Please fill out this section");
+            }
+        }
+
+        function resetForm() {
+            document.getElementById("confrm").reset();
+        }
+    </script>
+    </body>
+</html>

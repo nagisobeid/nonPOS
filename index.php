@@ -1,64 +1,78 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
-
-<head>
+    <title>nonPOS</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="mainpage.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-
-<body>
-    <header>
-        <div id="main-bar">
-            <img id="logo" src="./images/logo2.png"></img>
-            <button onClick="document.location='mainpage.html'" type="button" id="btn-Home" class="btn btn-link">Home</button>
-        </div>
-    </header>
-    <div class="mainContainer">
-
-        <div id="mid-section" style="padding-bottom: 0px; text-align: center;">
-            <img id="devices" style="width: 65%;" src="./images/all.png"></img>
-        <!--
-            <div id="jumb" class="jumbotron" style="box-shadow: 5px 10px; height: 360px; overflow:auto;">
-                <h1 class="display-4">Hello</h1>
-                <p class="lead">Welcome to nonPOS</p>
-                <hr class="my-4">
-                <p id="message">The best Point of Sale system for small businesses.
-                <div>
-                    <button onclick="document.location='login.php'" id="btnLogin" type="button"
-                        class="btn btn-primary btnPos">Login</button>
-                    <button onclick="document.location='createaccount.php'" id="btnCreate_Account" type="button"
-                        class="btn btn-primary btnPos">Create Account</button>
+<style>
+body {font-family: "Times New Roman", Georgia, Serif;}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display";
+letter-spacing: 5px;
+}
+    </style>
+    <body>
+        <div class="w3-top">
+            <div class="w3-bar w3-dark-gray w3-padding w3-card" style="letter-spacing:2px;">
+                <img src="./images/logo2.png" alt="POS" style="width:120px;height:55px;"></img>
+                <div class="w3-right w3-hide-small">
+                    <a href="about.php" class="w3-bar-item w3-button">About Us</a>
+                    <a href="login.php" class="w3-bar-item w3-button">Login</a>
+                    <a href="createaccount.php" class="w3-bar-item w3-button">Create an Account</a>
                 </div>
-                </p>
             </div>
-
-            jumbotron -->
         </div>
-
-        <div id="bottom" style="margin-top: 10px;">
-        <div>
-            <button onclick="document.location='login.php'" id="btnLogin" type="button"
-                class="btn btn-primary btnPos">Login</button>
-            <button onclick="document.location='createaccount.php'" id="btnCreate_Account" type="button"
-                class="btn btn-primary btnPos">Create Account</button>
-        </div>
-	    </div>
         
+        <div class="w3-row w3-padding-64" id="main"> 
+            <div class="w3-col m6 w3-padding-large w3-hide-small">
+                <img src="./images/nonposmain.jpg" class="w3-round w3-opacity-min" alt="deletepos" width="1550" height="750">
+                <h1 class="w3-xxlarge w3-center">Welcome to nonPOS</h1><br>
+                <hr class="my-4">
+                <h5 class="w3-large">The best Point of Sale system for small businesses.</h5>
+            </div>
+        </div>
 
-</body>
-<!--<div id="bottom-section">
-		<img id="imgCard" class="main-page-img" src="./images/ccds.jpg"></img>
-	</div>-->
-</div>
+        <hr>
+        <div class="w3-center">
+            <a href="about.php" class="w3-dark-gray w3-bar-item w3-button">About Us</a>
+            <a href="login.php" class="w3-dark-gray w3-bar-item w3-button">Login</a>
+            <a href="createaccount.php" class="w3-dark-gray w3-bar-item w3-button">Create an Account</a>
+        </div>
+        <hr>
+        <br><br><br><br><br><br>
+
+        <div class="w3-content" style:"max-width:1000px">
+ 
+            <div class="w3-col m6 w3-padding-large">
+                <h2 class="w3-center">Make your business life easier</h2><br>            
+            </div>
+       
+            <div class="w3-row w3-padding-64" id="main2">
+                <img src="./images/nonpos1.jpg" class="w3-round w3-image w3-opacity-min" alt="calcpos" width="700" height="1250">
+            </div>
+            
+        </div>
+
+        <br><br><br><br><br><br>
+        <hr>
+
+        <div class="w3-container w3-padding-64 w3-dark-gray" id="contact">
+            <h1>Contact</h1><br>
+            <p>Find out more if nonPOS is right for your business</p>
+            <p class"w3-text-white w3-large"><b>Address: nonPOS inc, 63rd None St, 93336 California, CA</b></p>
+            <p>Phone Number: (611) 336-3636</p>
+            <p>Email: nonPOS36@nonmail.com</p>
+            <p>Or fill out a <a href="contactform.html">Contact Form</a></p>
+        </div>
+    </body>
 
 </html>

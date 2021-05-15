@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS employees(
 	bID integer NOT NULL,
 	clockedIn tinyint(1) NOT NULL,
   	lastClockIn datetime DEFAULT NULL,
+	employed tinyint(1) NOT NULL,
 	PRIMARY KEY(eID),
 	FOREIGN KEY (bID) REFERENCES owners(bID)
 );

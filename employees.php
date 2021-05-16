@@ -109,7 +109,9 @@
 	
 	function employeeInfo($bID) {
 		global $con;
-		$stmt = $con->prepare("SELECT eID, fName, lName, dob, address, city, state, zip, phone, permisions, payRate FROM employees WHERE bID = :bID");
+		$stmt = $con->prepare("SELECT eID, fName, lName, dob, address, city,
+							   state, zip, phone, permisions, payRate
+							   FROM employees WHERE bID = :bID AND employed = 1");
 		if($stmt->execute(array(":bID" => $bID))) {
 			if($stmt->rowCount() > 0) {
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -124,6 +126,25 @@
 						echo " -- Employee";
 					}
 					echo " -- Pay Rate: " .$row["payRate"]. "<br><br>";
+				}
+			} else {
+				echo "0 results";
+			}
+		}
+	}
+	
+	function formerEmpInfo($bID) {
+		global $con;
+		$stmt = $con->prepare("SELECT eID, fName, lName, dob, address, city,
+							   state, zip, phone FROM employees WHERE bID = :bID
+							   AND employed = 0");
+		if($stmt->execute(array(":bID" => $bID))) {
+			if($stmt->rowCount() > 0) {
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					echo "ID: " .$row["eID"]. " -- Name: " . $row["fName"]. " "
+						.$row["lName"]. " -- DOB: " .$row["dob"]. " -- Address: " .$row["address"]. " "
+						.$row["city"]. " " .$row["state"]. " " .$row["zip"]. " -- Phone #:  "
+						.$row["phone"]. "<br><br>";
 				}
 			} else {
 				echo "0 results";
@@ -209,23 +230,29 @@
 				<input type="submit" name="action" value="Personal Employee Info">
 			</form>
 			<form method="post" action="employees.php">
-				<input id="idBtnViewEmployees" type="submit" name="action" value="View Employees">
+				<input id="idBtnViewEmployees" type="submit" name="action" value="View Current Employees">
+			</form>
+			<form method="post" action="employees.php">
+				<input type="submit" name="action" value="View Former Employees">
 			</form>
 			<input id="idBtnCreateEmployees" onclick="document.location='createemployee.php'" type="submit" value="Create New Employee">
 			<input id="idBtnManageEmployees" onclick="document.location='manageEmployees.php'" type="submit" value="Manage Employee Data">
 		</div>
 		<?php
 		if($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='Clock-In') {
-				attemptClockIn($_SESSION['currentEmployeePin'], $_SESSION['bid']);
+			attemptClockIn($_SESSION['currentEmployeePin'], $_SESSION['bid']);
 		}
 		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='Clock-Out') {
-				attemptClockOut($_SESSION['currentEmployeePin'], $_SESSION['bid']);
+			attemptClockOut($_SESSION['currentEmployeePin'], $_SESSION['bid']);
 		}
 		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='Personal Employee Info') {
-				personalInfo($_SESSION['currentEmployeePin'], $_SESSION['bid']);
+			personalInfo($_SESSION['currentEmployeePin'], $_SESSION['bid']);
 		}
-		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='View Employees') {
+		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='View Current Employees') {
 			employeeInfo($_SESSION['bid']);
+		}
+		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='View Former Employees') {
+			formerEmpInfo($_SESSION['bid']);
 		}
 		?>
 	</div>

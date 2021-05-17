@@ -79,7 +79,7 @@ if(isset($_POST['email_in']) && $_POST['address'])
         </header>
         <div class="container">
             <form method="POST" action="" class="form">
-                <p> Enter email address. A link will be sent to reset the password of the assosiated account. </p>
+                <p> Enter email address. A link will be sent to reset the password of the associated account. </p>
                 <input name="address" type="text" placeholder="address@email.com">
                 <input name="email_in" type="submit">
             </form>

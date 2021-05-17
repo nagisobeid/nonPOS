@@ -285,6 +285,9 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/JavaScript">
+	$(document).ready(function() {
+		$(".form").css("height", "660px");
+	});
 	</script>
 	
 
@@ -328,7 +331,7 @@
 		
 		<?php
 		if($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='UPDATE') {
-			if(!empty($_POST["update-ID"]) || !empty($_POST["update-manPIN"])) {
+			if(!empty($_POST["update-ID"]) && !empty($_POST["update-manPIN"])) {
 				$fields = array(1 => $_POST["update-ID"], $_POST["update-fname"], $_POST["update-lname"],
 					$_POST["update-dob"], $_POST["update-empPIN"], $_POST["update-addr"],
 					$_POST["update-city"],$_POST["update-state"], $_POST["update-zip"],
@@ -348,7 +351,7 @@
 			}
 		}
 		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='DELETE') {
-			if(!empty($_POST["delete-ID"]) || !empty($_POST["delete-PIN"])) {
+			if(!empty($_POST["delete-ID"]) && !empty($_POST["delete-PIN"])) {
 				if(permissionDoubleCheck($_SESSION["currentEmployee"], $_POST["delete-PIN"], $_SESSION["bid"])) {
 					deleteEmployee($_POST["delete-ID"], $_SESSION["currentEmployee"]);
 				}

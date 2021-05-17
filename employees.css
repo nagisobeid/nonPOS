@@ -54,8 +54,7 @@ input[type=submit]:hover {
 	grid-template-rows: auto repeat(6, 1fr);
 }
 .form {
-	box-shadow: 5px 10px;
-	height: 70%;
+	box-shadow: 5px 10px; height: 70%;
 	border-radius: 5px;
 	background-color: #f2f2f2;
 	text-align: center;
@@ -85,9 +84,18 @@ input[type=submit]:hover {
 #idBtnManageEmployees {
 }
 
+#idBtnFormerEmployees {
+}
+
+#idBtnOrdersAndHours {
+}
+
+#idBtnHours {
+}
+
 @media screen and (max-height: 3000px) {
 	.form {
-		height: 267px;
+		height: 300px; 
 	}
 }
 

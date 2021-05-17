@@ -115,7 +115,7 @@
 		if($stmt->execute(array(":bID" => $bID))) {
 			if($stmt->rowCount() > 0) {
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-					echo "ID: " .$row["eID"]. " -- Name: " . $row["fName"]. " "
+					echo "-- ID: " .$row["eID"]. " -- Name: " . $row["fName"]. " "
 						.$row["lName"]. " -- DOB: " .$row["dob"]. " -- Address: " .$row["address"]. " "
 						.$row["city"]. " " .$row["state"]. " " .$row["zip"]. " -- Phone #:  "
 						.$row["phone"];
@@ -127,9 +127,7 @@
 					}
 					echo " -- Pay Rate: " .$row["payRate"]. "<br><br>";
 				}
-			} else {
-				echo "0 results";
-			}
+			} 
 		}
 	}
 	
@@ -141,13 +139,13 @@
 		if($stmt->execute(array(":bID" => $bID))) {
 			if($stmt->rowCount() > 0) {
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-					echo "ID: " .$row["eID"]. " -- Name: " . $row["fName"]. " "
+					echo "-- ID: " .$row["eID"]. " -- Name: " . $row["fName"]. " "
 						.$row["lName"]. " -- DOB: " .$row["dob"]. " -- Address: " .$row["address"]. " "
 						.$row["city"]. " " .$row["state"]. " " .$row["zip"]. " -- Phone #:  "
 						.$row["phone"]. "<br><br>";
 				}
 			} else {
-				echo "0 results";
+				echo "There are no former employees";
 			}
 		}
 	}
@@ -159,7 +157,7 @@
 		if ($stmt->execute(array(":pin" => $pin, ":bID" => $bID))) {
 			if($stmt->rowCount() > 0) {
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-					echo "ID: " .$row["eID"]. " -- Name: " . $row["fName"]. " "
+					echo "-- ID: " .$row["eID"]. " -- Name: " . $row["fName"]. " "
 						.$row["lName"]. " -- DOB: " .$row["dob"]. " -- Address: " .$row["address"]. " "
 						.$row["city"]. " " .$row["state"]. " " .$row["zip"]. " -- Phone #:  "
 						.$row["phone"];
@@ -171,8 +169,24 @@
 					}
 					echo " -- Pay Rate: " .$row["payRate"]. "<br><br>";
 				}
-			} else {
-				echo "0 results";
+			} 
+		}
+	}
+	
+	function getHours($eID) {
+		global $con;
+		$stmt = $con->prepare("SELECT * FROM hours WHERE eID = :eID");
+		if($stmt->execute(array(":eID" => $eID))) {
+			if($stmt->rowCount() > 0) {
+				print("Shifts Worked By Employee #" .$eID. "<br>------------------------------<br>");
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+					print("-- Shift Start: " .$row["payStart"]. " -- Shift End: "
+					       .$row["payEnd"]. " -- Hourly Wage: " .$row["payRate"].
+						   " -- Hours Worked: " .$row["hoursWorked"]. "<br><br>");
+				}
+			}
+			else {
+				print("You have worked no shifts");
 			}
 		}
 	}
@@ -197,9 +211,15 @@
 		var currentEmployeePermissions = '<?php echo $_SESSION['currentEmployeePermissions']; ?>';
 		if (currentEmployeePermissions == 2) {
 			$("#idBtnViewEmployees").hide();
+			$("#idBtnFormerEmployees").hide();
+			$("#idBtnOrdersAndHours").hide();
 			$("#idBtnCreateEmployees").hide();
 			$("#idBtnManageEmployees").hide();
-			$(".form").css("height", "180px");
+			$(".form").css("height", "220px");
+		} else {
+			$(".form").css("display","visible");
+			$("#idBtnHours").hide();
+			$(".form").css("height", "400px");
 		}
 	});
 	</script>
@@ -233,8 +253,12 @@
 				<input id="idBtnViewEmployees" type="submit" name="action" value="View Current Employees">
 			</form>
 			<form method="post" action="employees.php">
-				<input type="submit" name="action" value="View Former Employees">
+				<input id="idBtnFormerEmployees" type="submit" name="action" value="View Former Employees">
 			</form>
+			<form method="post" action="employees.php">
+				<input id="idBtnHours" type="submit" name="action" value="View Hours">
+			</form>
+			<input id="idBtnOrdersAndHours" onclick="document.location='employeeOrdersAndHours.php'" type="submit" value="View Employee Orders & Hours">
 			<input id="idBtnCreateEmployees" onclick="document.location='createemployee.php'" type="submit" value="Create New Employee">
 			<input id="idBtnManageEmployees" onclick="document.location='manageEmployees.php'" type="submit" value="Manage Employee Data">
 		</div>
@@ -254,8 +278,10 @@
 		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='View Former Employees') {
 			formerEmpInfo($_SESSION['bid']);
 		}
+		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='View Hours') {
+			getHours($_SESSION['currentEmployee']);
+		}
 		?>
 	</div>
-
 </body>
 </html>

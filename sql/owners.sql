@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS owners(
     bID integer NOT NULL AUTO_INCREMENT,
     fName varchar(50),
     lName varchar(50),
-    email varchar(75) NOT NULL,
+    email varchar(75) NOT NULL UNIQUE,
     username varchar(25) NOT NULL,
     password varchar(75) NOT NULL,
     bName varchar(25) NOT NULL,

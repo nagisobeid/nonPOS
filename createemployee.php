@@ -70,16 +70,48 @@ error_reporting(E_ALL);
         $res->execute();
         $employee = $res->fetch();
 
+		$stateAbbr = Array("AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA",
+		                   "HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA",
+						   "MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY",
+						   "NC","ND","OH","OK","OR","PA","PR","RI","SC","SD","TN",
+						   "TX","UT","VT","VA","WA","WV","WI","WY");
+											   
         if(empty($fname) || empty($lname) ||empty($password) || 
             empty($address) || empty($city) || empty($state) || 
             empty($zip) || empty($phone) || empty($permissions) || empty($payrate)) {
 			$status = "All fields are requried";
 		}
-		else if ($res->rowCount() > 0) {
+		else if (strlen($fname) > 25) {
+			$status = "First Name Must Be 25 Characters Or Shorter";
+		} else if (strlen($lname) > 25) {
+			$status = "Last Name Must Be 25 Characters Or Shorter";
+		} else if ($res->rowCount() > 0) {
 			$status = "Passcode Already Exists";
+		} else if (strlen($password) > 25) {
+			$status = "Passcode Must Be 25 Characters Or Shorter";
+		} else if (strlen($address) > 50) {
+			$status = "Address Must Be 50 Characters Or Shorter";
+		} else if (strlen($city) > 25) {
+			$status = "City Must Be 25 Characters Or Shorter";
+		} else if (!in_array($state,$stateAbbr)) {
+			$status = "State Must Be A Valid, Capitalized, State Abbreviation";
+		} else if (strlen($zip) > 5) {
+			$status = "Zip Must Be 5 Characters Or Shorter";
+		} else if (!is_numeric($zip)) {
+			$status = "Zip Must Be A Series of Numbers";
+		} else if (strlen($phone) > 10) {
+			$status = "Phone Number Must Be 10 Characters Or Shorter";
+		} else if (!is_numeric($phone)) {
+			$status = "Phone Number Can Only Consist Of Numbers";
+		} else if ($permissions != '1' && $permissions != '2') {
+			$status = "Employee Must Have Manger(1) Or Employee(2) Permissions";
 		} else if($permissions != '1' and isset($_SESSION['firstLogin'])) {
             $status = "First User Must Have Manager Permissions(1)";
-        } else {  
+        } else if (substr_count($payrate,".") > 1) {
+			$status = "PayRate Must Have 1 Or Fewer Decimal Points";
+		} else if (!is_numeric(str_replace(".","",$payrate))) {
+			$status = "PayRate Must Be A Valid Float";
+		} else {  
                     $sql = "INSERT INTO employees (fName, lName, dob, ePass, address, city, state, zip, phone, permisions, payRate, bID)
                     VALUES (:fName, :lName, :dob, :ePass, :address, :city, :state, :zip, :phone, :permisions, :payRate, :bID)";
                     #VALUES (:fname,:lname,:dob,:password,:address, :city, :state,:zip,:phone,:permissions,:payrate,bID)";

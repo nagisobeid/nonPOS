@@ -43,10 +43,11 @@
 	function inputValidation($fields) {
 		global $con;
 		$error = False;
-		$states = $stateAbbreviations  = Array("AL","AK","CA","CT","DE","FL","GA",
-		                                       "HI","LA","ME","NH","NJ","NY","NC",
-											   "OR","MD","MA","MS","RI","SC","TX",
-											   "VA","WA");
+		$states = Array("AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA",
+		                "HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA",
+						"MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY",
+						"NC","ND","OH","OK","OR","PA","PR","RI","SC","SD","TN",
+						"TX","UT","VT","VA","WA","WV","WI","WY");
 		//Check that eID exists
 		if(!empty($fields[1])) {
 			$stmt = $con->prepare("SELECT * FROM employees WHERE eID = :eID");
@@ -255,11 +256,16 @@
 		}
 	}
 	
-	function deleteEmployee($eID) { //Ideally this would remove to a different table
-		global $con;                       //for record keeping purposes
-		$stmt = $con->prepare("DELETE FROM employees WHERE eID = :eID");
-		if ($stmt->execute(array(":eID" => $eID))) {
-			echo "Successful Deletion";
+	function deleteEmployee($eID, $mngrID) { // Doesn't delete, flips employed value
+		if ($eID != $mngrID) {
+			global $con;                 
+			$stmt = $con->prepare("UPDATE employees SET employed = 0 WHERE eID = :eID");
+			if ($stmt->execute(array(":eID" => $eID))) {
+				echo "Successful Removal";
+			}
+		}
+		else {
+			echo "ERROR: Cannot Terminate Self";
 		}
 	}
 ?>
@@ -279,6 +285,9 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/JavaScript">
+	$(document).ready(function() {
+		$(".form").css("height", "660px");
+	});
 	</script>
 	
 
@@ -313,7 +322,7 @@
 				<br><input id="idBtnUpd" type="submit" name="action" value="UPDATE">
 			</form>
 			<form method="post" action="manageEmployees.php">
-				Remove Employee
+				Terminate Employee
 				<br>[Employee ID]: <input id="idEtyBx" name="delete-ID" type="text" >
 				<br>[Manager PIN]: <input id="idEtyBx" name="delete-PIN" type="password" >
 				<br><input type="submit" name="action" value="DELETE">
@@ -322,7 +331,7 @@
 		
 		<?php
 		if($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='UPDATE') {
-			if(!empty($_POST["update-ID"]) || !empty($_POST["update-manPIN"])) {
+			if(!empty($_POST["update-ID"]) && !empty($_POST["update-manPIN"])) {
 				$fields = array(1 => $_POST["update-ID"], $_POST["update-fname"], $_POST["update-lname"],
 					$_POST["update-dob"], $_POST["update-empPIN"], $_POST["update-addr"],
 					$_POST["update-city"],$_POST["update-state"], $_POST["update-zip"],
@@ -342,9 +351,9 @@
 			}
 		}
 		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='DELETE') {
-			if(!empty($_POST["delete-ID"]) || !empty($_POST["delete-PIN"])) {
+			if(!empty($_POST["delete-ID"]) && !empty($_POST["delete-PIN"])) {
 				if(permissionDoubleCheck($_SESSION["currentEmployee"], $_POST["delete-PIN"], $_SESSION["bid"])) {
-					deleteEmployee($_POST["delete-ID"]);
+					deleteEmployee($_POST["delete-ID"], $_SESSION["currentEmployee"]);
 				}
 				else {
 					echo "Delete Failed: Incorrect manager PIN";

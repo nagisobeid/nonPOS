@@ -20,6 +20,7 @@ if(isset($_POST['email_in']) && $_POST['address'])
     $res->execute();
     $owner = $res->fetch();
         $token = bin2hex(random_bytes(25));
+    if ($owner != 0){
         $email = $owner['email'];
         $user = $owner['username'];
         $sql = "UPDATE Owners SET token='$token' where email='$email'";
@@ -46,8 +47,11 @@ if(isset($_POST['email_in']) && $_POST['address'])
         }
         else
         {
-            echo "Error.";
+            echo "<script>alert('Email not found, please try again.');</script>";
         }
+    } else {
+        echo "<script>alert('Email not found, please try again.');</script>";
+    }
 
 }
 ?>

@@ -95,6 +95,18 @@
         $res->execute();
     }
 
+    function editCategory($dbConn) {
+        $bID = $_SESSION['bid'];
+        $menuName = $_POST['nameMenuName'];
+        $sql_menu_id = "SELECT menuID from menus where bID = $bID AND mName = '$menuName'";
+        $res = $dbConn->prepare($sql_menu_id);
+        $res->execute();
+      
+        $sql = "UPDATE from menus WHERE bID = $sql_menu_id";
+        $res = $dbConn->prepare($sql);
+        $res->execute();
+    }
+
      
     if(isset($_POST['submit'])) {
         if ($_POST['submit'] == 'Add Category') {
@@ -106,6 +118,10 @@
         }
         elseif ($_POST['submit'] == 'Delete Category') {
             deleteCategory($con);
+            echo "<meta http-equiv='refresh' content='0'>";
+        } 
+        elseif ($_POST['submit'] == 'Edit Category') {
+            editCategory($con);
             echo "<meta http-equiv='refresh' content='0'>";
         }
     }
@@ -175,7 +191,8 @@
             <img id="logo" src="./images/logo2.png"></img>
             <button onclick="document.location='home.php'" type="button" id="idBtnHome"
                 class="btn btn-link">Home</button>
-            <button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
+            <button onclick="document.location='about.php'" type="button" id="idBtnAboutus" 
+                class="btn btn-link">About Us</button>
         </div>
     </header>
     <div class="row flex-nowrap" style="width: 100% !important; height: 100% !important;">
@@ -190,6 +207,8 @@
                     aria-controls="v-pills-deleteCategory" aria-selected="false">Remove Category</a>
                 <a class="nav-link" id="v-pills-removeItem-tab" data-toggle="pill" href="#v-pills-removeItem" role="tab"
                     aria-controls="v-pills-removeItem" aria-selected="false">Remove Item</a>
+                <a class="nav-link" id="v-pills-editCategory-tab" data-toggle="pill" href="#v-pills-editCategory" role="tab"
+                    aria-controls="v-pills-editCategory" aria-selected="false">Edit Category</a>
                 <a id="last" class="nav-link" id="v-pills-editItem-tab" data-toggle="pill" href="#v-pills-editItem" role="tab"
                     aria-controls="v-pills-editItem" aria-selected="false">Edit Item</a>
             </div>
@@ -357,6 +376,21 @@
                     </form>
                 </div>
                 <!-- END EDIT ITEM -->
+                <!-- EDIT Category -->
+                <div class="tab-pane fade" id="v-pills-editCategory" role="tabpanel" aria-labelledby="v-pills-editCategory-tab">
+                    <form id="form" method="POST">
+                      
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="selectCategory">Category</label>
+                                <select name="nameMenuName" id="selectedCategory" class="form-control" style="height: 34px !important;">
+                                    <!--<option selected>Choose...</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <input name="submit" type="submit" value="Edit Category" class="btn btn-primary">
+                    </form>
+                </div>
             </div>
         </div>
     </div>

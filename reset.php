@@ -23,6 +23,9 @@
                 $res->execute();
                 echo '<script>alert("Password reset correctly."); window.location="login.php";</script>';
             }
+        }
+        else{
+            echo '<script>alert("Password reset failed. Passwords do not match.");</script>';
         }  
     }
 ?>

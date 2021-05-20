@@ -96,7 +96,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="manageEmployees.css">
+	<link rel="stylesheet" href="./css/employeeOrdersAndHours.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<!-- jQuery Library -->
@@ -106,7 +106,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/JavaScript">
 	$(document).ready(function() {
-		$(".form").css("height", "340px");
+		$(".form").css("height", "360px");
 	});
 	</script>
 	
@@ -121,7 +121,7 @@
 	
 	<div class="container">
 		<div class="formDescription">
-			<h1 class="description"><?= "Manage Employees"?></h1>
+			<h1 class="description"><?= "Employee Hours And Orders"?></h1>
 		</div>
 		<div class="form">
 			<form method="post" action="employeeOrdersAndHours.php">

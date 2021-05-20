@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="settings.css">
+	<link rel="stylesheet" href="./css/settings.css"><!--add ./css/-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<!-- jQuery library -->
@@ -16,11 +16,12 @@
 </head>
 <body>
 <header>
-	<div id="main-bar">
-		<img id="logo" src="./images/logo2.png"></img>
-		<button type="button" id="idBtnHome" class="btn btn-link">Home</button>
-		<button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
-	</div>
+        <div id="main-bar">
+            <img id="logo" src="./images/logo2.png"></img>
+            <button onclick="document.location='index.php'" type="button" id="idBtnHome"
+                class="btn btn-link">Home</button>
+            <button type="button" id="idBtnAboutus" class="btn btn-link">About Us</button>
+        </div>
 </header>
 	
 	<div class="container">

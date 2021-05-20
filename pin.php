@@ -27,7 +27,7 @@
 
 		$employee = $result->fetch();
 		#echo $user['bName'];
-		if ($employee and $employee['ePass'] == $pin) {
+		if ($employee and $employee['ePass'] == $pin and $employee['employed'] == 1) {
 			#$status = $employee['fName'];
 			#header("location: home.php");
 			$_SESSION['currentEmployeePin'] = $pin;

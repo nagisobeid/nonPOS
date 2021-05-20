@@ -112,15 +112,16 @@ error_reporting(E_ALL);
 		} else if (!is_numeric(str_replace(".","",$payrate))) {
 			$status = "PayRate Must Be A Valid Float";
 		} else {  
-                    $sql = "INSERT INTO employees (fName, lName, dob, ePass, address, city, state, zip, phone, permisions, payRate, bID)
-                    VALUES (:fName, :lName, :dob, :ePass, :address, :city, :state, :zip, :phone, :permisions, :payRate, :bID)";
+                    $sql = "INSERT INTO employees (fName, lName, dob, ePass, address, city, state, zip, phone, permisions, payRate, bID, clockedIn)
+                    VALUES (:fName, :lName, :dob, :ePass, :address, :city, :state, :zip, :phone, :permisions, :payRate, :bID, :clockedIn)";
                     #VALUES (:fname,:lname,:dob,:password,:address, :city, :state,:zip,:phone,:permissions,:payrate,bID)";
 				
 					$stmt = $con->prepare($sql);
 					$stmt->execute(['fName' => $fname, 'lName' => $lname, 'dob' => $dob, 
                                     'ePass' => $password, 'address' => $address, 'city'=> $city,
                                     'state' => $state, 'zip' => $zip, 'phone'=> $phone,
-                                    'permisions' => $permissions, 'payRate' => $payrate, 'bID'=> $bID]);
+                                    'permisions' => $permissions, 'payRate' => $payrate, 'bID'=> $bID,
+									'clockedIn' => 0]);
                     
                     if(isset($_SESSION['firstLogin'])) {
                         unset ($_SESSION["firstLogin"]);

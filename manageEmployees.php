@@ -160,7 +160,7 @@
 		return $error;
 	}
 	
-	function updateEmployee($fields) {
+	function updateEmployee($fields, $bID) {
 		global $con;
 		$query = "UPDATE employees SET ";
 		$fieldKey = array(":eID" => $fields[1]);
@@ -241,14 +241,20 @@
 			$onePlusFields = 1;
 			$fieldKey = array_merge($fieldKey, array(":payRate" => $fields[12]));
 		}
-		$query = $query. " WHERE eID = :eID";
+		$query = $query. " WHERE eID = :eID AND bID = :bID";
+		$fieldKey = array_merge($fieldKey, array(":bID" => $bID));
 		if($onePlusFields == 1) {
 			$stmt = $con->prepare($query);
-			if($stmt->execute($fieldKey)) {
+			$stmt->execute($fieldKey);
+			$result = $stmt->rowCount();
+			if ($result > 0) {
 				echo "Update Successful";
 			}
-			else {
-				echo "Database Error: Query couldn't be executed.";
+			elseif ($result == 0) {
+				echo "ERROR: Cannot update employees of other businesses or employee does not exist.";
+			}
+			elseif ($result < 0) {
+				echo "ERROR: Database query execution error.";
 			}
 		}
 		else {
@@ -256,16 +262,24 @@
 		}
 	}
 	
-	function deleteEmployee($eID, $mngrID) { // Doesn't delete, flips employed value
+	function deleteEmployee($eID, $mngrID, $bID) { // Doesn't delete, flips employed value
 		if ($eID != $mngrID) {
 			global $con;                 
-			$stmt = $con->prepare("UPDATE employees SET employed = 0 WHERE eID = :eID");
-			if ($stmt->execute(array(":eID" => $eID))) {
-				echo "Successful Removal";
+			$stmt = $con->prepare("UPDATE employees SET employed = 0 WHERE eID = :eID AND bID = :bID");
+			$stmt->execute(array(":eID" => $eID, ":bID" => $bID));
+			$result = $stmt->rowCount();
+			if ($result > 0) {
+				echo "Delete Successful";
+			}
+			elseif ($result == 0) {
+				echo "ERROR: Cannot remove employees of other businesses or employee does not exist.";
+			}
+			elseif ($result < 0) {
+				echo "ERROR: Database query execution error.";
 			}
 		}
 		else {
-			echo "ERROR: Cannot Terminate Self";
+			echo "ERROR: Cannot Terminate Self or Employees from Other Businesses";
 		}
 	}
 ?>
@@ -339,7 +353,7 @@
 				if(permissionDoubleCheck($_SESSION["currentEmployee"], $_POST["update-manPIN"], $_SESSION["bid"])) {
 					$entryError = inputValidation($fields);
 					if($entryError == False) {
-						updateEmployee($fields);
+						updateEmployee($fields, $_SESSION["bid"]);
 					}
 				}
 				else {
@@ -353,7 +367,7 @@
 		elseif($_SERVER['REQUEST_METHOD']=='POST' && $_POST['action']=='DELETE') {
 			if(!empty($_POST["delete-ID"]) && !empty($_POST["delete-PIN"])) {
 				if(permissionDoubleCheck($_SESSION["currentEmployee"], $_POST["delete-PIN"], $_SESSION["bid"])) {
-					deleteEmployee($_POST["delete-ID"], $_SESSION["currentEmployee"]);
+					deleteEmployee($_POST["delete-ID"], $_SESSION["currentEmployee"], $_SESSION["bid"]);
 				}
 				else {
 					echo "Delete Failed: Incorrect manager PIN";
